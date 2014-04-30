@@ -1,0 +1,6 @@
+<figure>
+    <img src='{{ url_for('static', filename=['images', src]|join('/')) }}' alt='{{ alt }}' />
+    {%- if title %}
+    <figcaption>{{ title }}</figcaption>
+    {%- endif %}
+</figure>

@@ -1,0 +1,64 @@
+{% macro render_article_list(articles) %}
+<ol>
+    {%- for article in articles %}
+    <li>
+        <a href='{{ url_for('page', path=article.path) }}'>{{ article.title }}</a>
+        <time datetime='{{ article.meta.published|date('%Y-%m-%d') }}'>({{ article.meta.published|date('%B %e, %Y') }})</time>
+    </li>
+    {%- endfor %}
+</ol>
+{% endmacro %}
+
+
+{% macro render_article(article) %}
+<article class='article'>
+    <header>
+        <h2><a href='{{ url_for('page', path=article.path) }}'>{{ article.meta.title }}</a></h2>
+        {%- if article.meta.published %}
+        <time datetime='{{ article.meta.published|date('%Y-%m-%d') }}'>{{ article.meta.published|date('%B %e, %Y') }}</time>
+        {%- endif %}
+    </header>
+{{ article.html|safe }}
+    {%- if article.meta.tags or article.meta.updated %}
+    <footer>
+        <dl>
+        {%- if article.meta.tags %}
+            <dt>Tagged</dt>
+            {%- for tag in article.meta.tags %}
+            <dd><a href='{{ url_for('tag', tag=tag) }}'>{{ tag }}</a></dd>
+            {%- endfor %}
+        {%- endif %}
+        {%- if article.meta.updated %}
+            <dt>Updated</dt>
+            <dd><time datetime='{{ article.meta.updated|date('%Y-%m-%d') }}'>{{ article.meta.updated|date('%B %e, %Y') }}</time></dd>
+        {%- endif %}
+        </dl>
+    </footer>
+    {%- endif %}
+</article>
+{% endmacro %}
+
+
+{% macro render_pagination(pagination) %}
+{%- if pagination.pages > 1 %}
+<div class='pagination'>
+    {%- if pagination.has_prev %}
+    <a href='{{ url_for_other_page(pagination.page - 1) }}' class='previous'>Previous</a>
+    {%- endif %}
+    {%- for page in pagination.iter_pages() %}
+        {%- if page %}
+            {%- if page != pagination.page %}
+    <a href='{{ url_for_other_page(page) }}'>{{ page }}</a>
+            {%- else %}
+    <strong>{{ page }}</strong>
+            {%- endif %}
+        {%- else %}
+    …
+        {%- endif %}
+    {%- endfor %}
+    {%- if pagination.has_next %}
+    <a href='{{ url_for_other_page(pagination.page + 1) }}' class='next'>Next</a>
+    {%- endif %}
+</div>
+{%- endif %}
+{% endmacro %}

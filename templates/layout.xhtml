@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns='http://www.w3.org/1999/xhtml' lang='en' xml:lang='en'>
+    <head>
+        <meta charset='utf-8' />
+        <title>obda.net</title>
+        </title>
+        <meta name='author' content='Clemens Kaposi' />
+        <link rel='stylesheet' href='{{ url_for('static', filename='css/reset.css') }}' />
+        <link rel='stylesheet' href='{{ url_for('static', filename='css/fonts.css') }}' />
+        <link rel='stylesheet' href='{{ url_for('pygments_css') }}' />
+        <link rel='stylesheet' href='{{ url_for('static', filename='css/screen.css') }}' />
+        <link rel='icon' href='/favicon.ico' />
+        <meta name='viewport' content='width=device-width, maximum-scale=1, initial-scale=1' />
+    </head>
+    <body {%- if body_class %} class='{{ body_class }}' {%- endif %}>
+        <header role='banner'>
+            <h1><a href='{{ url_for('index') }}'>obda.net</a></h1>
+            <nav>
+                <ul>
+                    <li><a href='{{ url_for('tags') }}'>Tags</a></li>
+                    <li><a href='{{ url_for('archives') }}'>Archives</a></li>
+                    <li><a href='{{ url_for('page', path='about') }}'>About</a></li>
+                </ul>
+            </nav>
+        </header>
+{% block breadcrumbs %}{% endblock %}
+        <main>
+{% block content %}{% endblock %}
+        </main>
+        <footer role='contentinfo'>
+            © {{ none|date('%Y') }} Clemens Kaposi
+        </footer>
+    </body>
+</html>

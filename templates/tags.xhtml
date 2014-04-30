@@ -1,0 +1,13 @@
+{% extends 'layout.xhtml' %}
+{% import 'macros.xhtml' as macros %}
+
+{% block content %}
+<article class='archive'>
+    <h2>Tags</h2>
+    <ul>
+    {%- for tag in tags|sort %}
+        <li><a href='{{ url_for('tag', tag=tag) }}'>{{ tag }}</a> <small>({{ tags[tag] }})</small></li>
+    {%- endfor %}
+    </ul>
+</article>
+{% endblock %}
