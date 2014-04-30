@@ -7,7 +7,7 @@ html {
 
 body {
     width: 90%;
-    max-width: 50em;            /* 60em * 1.15rem = 69rem */
+    max-width: 50rem;
     margin: 0 auto;
     color: #657b83;
     font-family: Merriweather, serif;
@@ -136,8 +136,10 @@ pre {
 
 /* Header */
 header[role='banner'] {
-    position: relative;
+    position: fixed;
     z-index: 1;
+    width: 90%;
+    max-width: 50rem;
     background: linear-gradient(
         rgba(0, 0, 0, .0) 0%,
         rgba(0, 0, 0, .0) 50%,
@@ -189,8 +191,7 @@ header[role='banner'] h1 a {
 /* Main content area */
 main {
     position: relative;
-    padding: 2em;
-    padding-bottom: 4em;
+    padding: 6em 2em 4em;
     border-bottom-left-radius: .3em;
     border-bottom-right-radius: .3em;
     background: #fdf6e3;
@@ -381,13 +382,17 @@ footer[role='contentinfo'] {
     figure {
         margin-left: 0;
     }
+    header[role='banner'] {
+        width: 100%;
+        max-width: none;
+    }
     header[role='banner'] a,
     header[role='banner'] h1 a {
         padding: .4em;
         font-size: 1.2rem;
     }
     main {
-        padding: 1em .5em;
+        padding: 3.5em .5em 1em;
     }
     main::before, main::after {
         content: none;
