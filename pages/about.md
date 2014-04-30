@@ -10,7 +10,7 @@ without it.
 
 I like lean systems with no frills (the notable exception being GNU Emacs),
 and I have a nonsensical weakness for CLI software.  The terminal is my
-default working environment, the desktop is necessary evil for graphical
+default working environment, the desktop a necessary evil for graphical
 browsers and image editing.
 
 ### Organizations
