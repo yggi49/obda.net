@@ -14,12 +14,14 @@ from markupsafe import Markup
 # Configuration
 # =============
 
+pages = FlatPages()
+
 class DefaultConfig(object):
 
     @staticmethod
     def prerender_jinja(text):
         prerendered_body = render_template_string(Markup(text))
-        return pygmented_markdown(prerendered_body)
+        return pygmented_markdown(prerendered_body, pages)
 
     DEBUG = False
     FLATPAGES_AUTO_RELOAD = False
@@ -34,7 +36,7 @@ class DefaultConfig(object):
 
 application = app = Flask(__name__)
 app.config.from_object(DefaultConfig)
-pages = FlatPages(app)
+pages.init_app(app)
 
 
 # Template filters & globals
