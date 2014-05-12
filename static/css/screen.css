@@ -203,7 +203,7 @@ header[role='banner'] h1 a {
 /* Main content area */
 main {
     position: relative;
-    padding: 6em 2em 4em;
+    padding: 7em 3em 4em;
     border-bottom-left-radius: .3em;
     border-bottom-right-radius: .3em;
     background: #fdf6e3;
@@ -249,12 +249,12 @@ footer[role='contentinfo'] {
 
 /* Blog Articles */
 .article + .article {
-    margin-top: 3em;
+    margin-top: 4em;
 }
 .article + .article::before {
     display: block;
     position: relative;
-    top: -1rem;
+    top: -2rem;
     height: .8rem;
     text-align: center;
     background: url('../images/design/separator.svg') center no-repeat;
@@ -326,10 +326,14 @@ footer[role='contentinfo'] {
 /* Code Blocks */
 .codehilite {
     overflow: auto;
-    margin: 1.5em;
+    margin: 1.75em;
+    margin-top: 1em;
     border-top-left-radius: 1em;
     border-bottom-right-radius: 1em;
     padding: .5em 1em;
+}
+.codehilite + .codehilite {
+    margin-top: -.75em;
 }
 
 /* Pagination */
