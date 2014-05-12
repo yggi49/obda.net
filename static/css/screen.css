@@ -142,6 +142,10 @@ small {
 time {
     white-space: nowrap;
 }
+code {
+    color: #b58900;
+    font-size: 115%;
+}
 code, pre {
     font-family: Inconsolata, monospace;
 }
