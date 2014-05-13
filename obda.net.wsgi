@@ -4,6 +4,7 @@
 from collections import Counter
 import datetime
 import math
+import sys
 
 from flask import (Flask, render_template, render_template_string, url_for,
                    abort, request, redirect)
@@ -190,6 +191,10 @@ class Pagination(object):
 # ==================
 
 if __name__ == '__main__':
+    try:
+        port = int(sys.argv[1])
+    except (IndexError, ValueError):
+        port = 5000
     app.config.update({'DEBUG': True,
                        'FLATPAGES_AUTO_RELOAD': True})
-    app.run()
+    app.run(port=port)
