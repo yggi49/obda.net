@@ -36,7 +36,7 @@ Qualifier | Description
 `u:`*`name`*`:` | owned by user *`name`*
 `g:`*`name`*`:` | owned by group *`name`*
 `a[Mwhms][-+]`*`n`* | access time in given units (see below)
-`m[Mwhms][-+]`*`n`* | midification time in given units
+`m[Mwhms][-+]`*`n`* | modification time in given units
 `L[kmp][-+]`*`n`* | size in given units (see below)
 `^` | negate following qualifiers
 `-` | toggle following links (first one turns on)
