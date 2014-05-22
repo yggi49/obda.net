@@ -161,7 +161,7 @@ time {
 }
 code {
     color: #b58900;
-    font-size: 115%;
+    font-size: 1.15em;
     line-height: 1.2;
 }
 code, pre {
@@ -175,6 +175,7 @@ blockquote code {
 /* Header */
 header[role='banner'] {
     position: fixed;
+    top: 0;
     z-index: 1;
     width: 90%;
     max-width: 50rem;
@@ -407,7 +408,7 @@ footer[role='contentinfo'] {
 /* Small Screens */
 @media screen and (max-width: 40em) {
     html {
-        font-size: 1rem;
+        font-size: .85rem;
     }
     body {
         width: 100%;
@@ -424,6 +425,9 @@ footer[role='contentinfo'] {
     figure {
         margin-left: 0;
     }
+    code {
+        font-size: 1.1em;
+    }
     header[role='banner'] {
         width: 100%;
         max-width: none;
@@ -431,10 +435,10 @@ footer[role='contentinfo'] {
     header[role='banner'] a,
     header[role='banner'] h1 a {
         padding: .4em;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
     main {
-        padding: 3.5em .5em 1em;
+        padding: 4em .5em 1em;
     }
     main::before, main::after {
         content: none;
@@ -445,6 +449,6 @@ footer[role='contentinfo'] {
     .codehilite {
         margin-right: 0;
         margin-left: 0;
-        font-size: .75em;
+        font-size: .9em;
     }
 }
