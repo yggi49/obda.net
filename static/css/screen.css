@@ -68,8 +68,8 @@ figure {
     position: relative;
     float: right;
     clear: right;
-    margin-left: 1em;
     margin-bottom: 1em;
+    margin-left: 1em;
     padding: 1.5em;
     padding-bottom: 4em;
     background-color: #ffffff;
@@ -93,8 +93,8 @@ figcaption {
     display: block;
     position: absolute;
     bottom: 0;
-    left: 1.5em;
     right: 1.5em;
+    left: 1.5em;
     height: 3.5em;
     font-style: italic;
     text-align: center;
@@ -110,6 +110,23 @@ td, th {
 }
 th {
     font-weight: bold;
+}
+blockquote {
+    position: relative;
+    margin-right: 2em;
+    margin-left: 3em;
+    border-left: 3px solid #eee8d5;
+    padding-left: .5em;
+    font-style: italic;
+}
+blockquote::before {
+    position: absolute;
+    top: -.5rem;
+    left: -2.5rem;
+    color: #93a1a1;
+    font-size: 3rem;
+    font-weight: bold;
+    content: '“';
 }
 a {
     border-bottom: 1px dotted transparent;
@@ -145,9 +162,14 @@ time {
 code {
     color: #b58900;
     font-size: 115%;
+    line-height: 1.2;
 }
 code, pre {
     font-family: Inconsolata, monospace;
+}
+blockquote code {
+    margin-right: .1em;
+    margin-left: .1em;
 }
 
 /* Header */
@@ -208,8 +230,8 @@ header[role='banner'] h1 a {
 main {
     position: relative;
     padding: 7em 3em 4em;
-    border-bottom-left-radius: .3em;
     border-bottom-right-radius: .3em;
+    border-bottom-left-radius: .3em;
     background: #fdf6e3;
 }
 main::before {
@@ -421,8 +443,8 @@ footer[role='contentinfo'] {
         padding-right: .5em;
     }
     .codehilite {
-        margin-left: 0;
         margin-right: 0;
+        margin-left: 0;
         font-size: .75em;
     }
 }

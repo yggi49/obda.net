@@ -1,6 +1,8 @@
 title: 'Register an IRC Channel on freenode'
 published: 2014-05-12
-tags: [irc, freenode]
+tags: [irc, freenode, cheat-sheet]
+
+{% include 'cheat-sheet.md' %}
 
 First, register your nickname if you haven’t done so yet:
 
