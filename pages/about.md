@@ -26,7 +26,7 @@ browsers and image editing.
   * **Key ID:** 5F35334B
   * **Fingerprint:** F0E1 461E CD40 56E1 A5D3 6D43 6D8E 78E0 5F35 334B
 
-### Social
+### Profiles
 
   * [GitHub](https://github.com/yggi49)
   * [LinkedIn](http://at.linkedin.com/in/ckaposi)
