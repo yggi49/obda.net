@@ -1,6 +1,7 @@
 /* General Layout and Appearance */
 html {
     background: url('../images/design/backdrop.svg') #eee8d5;
+    background-attachment: fixed;
     font-family: Merriweather, serif;
     font-size: 1.15rem;
 }
