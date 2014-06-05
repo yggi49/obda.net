@@ -157,6 +157,10 @@ small {
     font-style: italic;
     font-weight: 300;
 }
+sup {
+    font-size: .65em;
+    vertical-align: super;
+}
 time {
     white-space: nowrap;
 }
@@ -231,14 +235,15 @@ header[role='banner'] h1 a {
 /* Main content area */
 main {
     position: relative;
-    padding: 7em 3em 4em;
+    margin-top: 4.5em;
+    padding: 3em 3em 4em;
     border-bottom-right-radius: .3em;
     border-bottom-left-radius: .3em;
     background: #fdf6e3;
 }
 main::before {
     position: absolute;
-    top: -3.75em;
+    top: -4.5em;
     bottom: .3em;
     left: -.25rem;
     width: .25rem;
@@ -262,9 +267,21 @@ main::after {
     );
     content: '\00a0';
 }
+main :target::before {
+    display: block;
+    height: 5rem;
+    margin-top: -5rem;
+    content: ' ';
+    visibility: hidden;
+}
 main a {
     font-weight: bold;
 }
+main a.footnote-backref,
+main sup a {
+    font-weight: normal;
+}
+
 
 /* Footer */
 footer[role='contentinfo'] {
@@ -385,6 +402,25 @@ footer[role='contentinfo'] {
 }
 .pagination a.next::after {
     content: ' »';
+}
+
+/* Footnotes */
+.footnote {
+    font-size: .8em;
+    font-style: italic;
+}
+.footnote hr {
+    width: 33%;
+    margin: 1em 0 .5em;
+    border: 0;
+    border-top: 1px solid #eee8d5;
+}
+.footnote ol {
+    margin-left: 0;
+}
+.footnote li:target p {
+    margin-top: 0;
+    background: #eee8d5;
 }
 
 /* Archive Lists */

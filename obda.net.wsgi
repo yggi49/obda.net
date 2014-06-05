@@ -28,7 +28,7 @@ class DefaultConfig(object):
     FLATPAGES_AUTO_RELOAD = False
     FLATPAGES_EXTENSION = '.md'
     FLATPAGES_HTML_RENDERER = prerender_jinja
-    FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'tables']
+    FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'tables', 'footnotes']
     ARTICLES_PER_PAGE = 3
     PYGMENTS_STYLE = 'solarizeddark'
 
