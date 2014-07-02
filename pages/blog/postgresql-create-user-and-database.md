@@ -13,15 +13,23 @@ tags: [postgresql, cheat-sheet]
 <!-- -->
 
     :::psql
-    template1=# CREATE USER tom WITH PASSWORD 'myPassword';
-    template1=# CREATE DATABASE jerry;
-    template1=# GRANT ALL PRIVILEGES ON DATABASE jerry to tom;
+    postgres=# CREATE USER tom WITH PASSWORD 'myPassword';
+    postgres=# CREATE DATABASE jerry;
+    postgres=# GRANT ALL PRIVILEGES ON DATABASE jerry to tom;
 
 Or, with multi-line input directly from the command line:
 
     :::console
-    user@host:~$ cat <<EOF | psql -U postgres -d template1
+    user@host:~$ cat <<EOF | psql -U postgres
     CREATE USER tom WITH PASSWORD 'myPassword';
     CREATE DATABASE jerry;
     GRANT ALL PRIVILEGES ON DATABASE jerry to tom;
+    EOF
+
+You can specify a different collation than the default collation by using
+`template0` as template database:
+
+    :::console
+    user@host:~$ cat <<EOF | psql -U postgres
+    CREATE DATABASE jerry TEMPLATE = template0 LC_COLLATE = 'de_AT.UTF-8';
     EOF
