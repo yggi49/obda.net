@@ -76,6 +76,12 @@ figure {
     background-color: #ffffff;
     box-shadow: 0 0 .5em -.1em rgba(0, 0, 0, .5);
 }
+figure.here {
+    display: table;
+    float: none;
+    clear: none;
+    margin: 1em auto;
+}
 figure::before {
     position: absolute;
     z-index: 1;
