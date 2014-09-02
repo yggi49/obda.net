@@ -59,9 +59,10 @@ def url_for_other_page(page):
 
 
 @app.template_global()
-def image(src, alt, title=''):
+def image(src, alt, title='', class_name=''):
     url = url_for('static', filename='images/' + src)
-    return render_template('figure.xhtml', src=src, alt=alt, title=title)
+    return render_template('figure.xhtml', src=src, alt=alt, title=title,
+                           class_name=class_name)
 
 
 # View functions

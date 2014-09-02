@@ -1,4 +1,4 @@
-<figure>
+<figure {%- if class_name %} class='{{ class_name }}' {%- endif %}>
     <img src='{{ url_for('static', filename=['images', src]|join('/')) }}' alt='{{ alt }}' />
     {%- if title %}
     <figcaption>{{ title }}</figcaption>
