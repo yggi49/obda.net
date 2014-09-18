@@ -1,1 +1,2 @@
 *.pyc
+/pages/blog/*.draft.md
