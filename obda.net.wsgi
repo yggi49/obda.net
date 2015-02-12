@@ -17,6 +17,7 @@ from markupsafe import Markup
 
 pages = FlatPages()
 
+
 class DefaultConfig(object):
 
     @staticmethod
@@ -60,7 +61,6 @@ def url_for_other_page(page):
 
 @app.template_global()
 def image(src, alt, title='', class_name=''):
-    url = url_for('static', filename='images/' + src)
     return render_template('figure.xhtml', src=src, alt=alt, title=title,
                            class_name=class_name)
 
@@ -177,11 +177,11 @@ class Pagination(object):
     def iter_pages(self, left_edge=2, left_current=2,
                    right_current=5, right_edge=2):
         last = 0
-        for num in xrange(1, self.pages + 1):
-            if num <= left_edge or \
-               (num > self.page - left_current - 1 and \
-                num < self.page + right_current) or \
-               num > self.pages - right_edge:
+        for num in range(1, self.pages + 1):
+            if (num <= left_edge or
+                    (num > self.page - left_current - 1 and
+                     num < self.page + right_current) or
+                    num > self.pages - right_edge):
                 if last + 1 != num:
                     yield None
                 yield num
