@@ -407,7 +407,6 @@ footer[role='contentinfo'] {
     font-size: 87%;
 }
 .article + .comments > ol > li {
-    position: relative;
     margin: 1em 0;
     padding-right: 4.5em;
 }
@@ -416,6 +415,7 @@ footer[role='contentinfo'] {
     padding-top: 1em;
 }
 .article + .comments > ol article {
+    position: relative;
     min-height: 48px;
     padding-left: 20%;
 }
@@ -431,14 +431,9 @@ footer[role='contentinfo'] {
 }
 .article + .comments > ol header img {
     position: absolute;
-    top: 1em;
-    right: .5em;
-    margin-top: 2px;
-    border: 1px solid #839496;
-}
-.article + .comments > ol li:first-child header img {
     top: 0;
-    margin-top: 0;
+    left: 102%;
+    border: 1px solid #839496;
 }
 .article + .comments > ol header span {
     position: absolute;
