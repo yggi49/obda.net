@@ -3,4 +3,75 @@
 
 {% block content %}
 {{ macros.render_article(page) }}
+{%- if comments or comments_enabled(page) %}
+<aside id='comments' class='comments'>
+    <header>
+        <h3>{% if comments -%} {{ comments|length }} {% endif -%} Comment{{ comments|length|pluralize }}</h3>
+        {%- if comments and comments_enabled %}
+        <a href='#comment-form'>Leave a Message</a>
+        {%- endif %}
+    </header>
+    {%- if comments %}
+    <ol>
+        {%- for comment in comments %}
+        <li id='comment-{{ comment.meta.published|date('%Y%m%d%H%M%S%f') }}'>
+            <article>
+                <header>
+                    {%- if comment.meta.website %}
+                    <a href='{{ comment.meta.website }}' rel='external nofollow'>{{ comment.meta.author }}</a>
+                    {%- else %}
+                    <b>{{ comment.meta.author }}</b>
+                    {%- endif %}
+                    <span>on</span>
+                    <time datetime='{{ comment.meta.published|date('%Y-%m-%dT%H:%M:%S+00:00') }}'>{{ comment.meta.published|date('%B&#160;%e,&#160;%Y at&#160;%-I:%M&#160;%P')|safe }}</time>
+                </header>
+                {{ comment.html|safe }}
+            </article>
+        </li>
+        {%- endfor %}
+    </ol>
+    {%- endif %}
+    {%- if comments and not comments_enabled(page) %}
+    <p>Comments have been closed.</p>
+    {%- endif %}
+    {%- if comments_enabled(page) %}
+    <form id='comment-form' action='{{ url_for('show_page', path=page.path, _anchor='comment-form') }}' method='POST'>
+        <fieldset>
+            <legend>Leave a Message {%- if not comments -%} —be the first! {%- endif %}</legend>
+            <ol>
+                <li>
+                    <label for='comment-name'>Name</label>
+                    <input id='comment-name' name='name' type='text' value='{{ form_data.name }}' tabindex='1' />
+                    {%- if 'name' in form_errors %}
+                    <p class='error'>Please enter your name.</p>
+                    {%- endif %}
+                </li>
+                <li>
+                    <label for='comment-email'>Email (not published)</label>
+                    <input id='comment-email' name='email' type='email' required='required' value='{{ form_data.email }}' tabindex='2' />
+                    {%- if 'email' in form_errors %}
+                    <p class='error'>Please enter your email address.</p>
+                    {%- endif %}
+                </li>
+                <li>
+                    <label for='comment-website'>Website (optional)</label>
+                    <input id='comment-website' name='website' type='url' value='{{ form_data.website }}' tabindex='3' />
+                </li>
+                <li>
+                    <label for='comment-body'>Message</label>
+                    <textarea id='comment-body' name='comment' rows='10' cols='72' required='required' tabindex='4'>{{ form_data.comment }}</textarea>
+                    {%- if 'comment' in form_errors %}
+                    <p class='error'>Please enter your comment.</p>
+                    {%- endif %}
+                    <small>You may use <a href='https://pythonhosted.org/Markdown/'>Markdown</a> (sans HTML) for formatting.</small>
+                </li>
+            </ol>
+        </fieldset>
+        <fieldset>
+            <button type='submit' tabindex='5'>Submit Comment</button>
+        </fieldset>
+    </form>
+    {%- endif %}
+</aside>
+{%- endif %}
 {% endblock %}

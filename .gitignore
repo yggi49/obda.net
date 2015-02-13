@@ -1,3 +1,4 @@
 *.pyc
 /pages/blog/*.draft.md
+/pages/blog/**/*/comment-*
 /.idea/

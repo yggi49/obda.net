@@ -323,6 +323,21 @@ footer[role='contentinfo'] {
     font-style: italic;
     font-weight: 300;
 }
+.article header time + a {
+    position: relative;
+    top: -1.5em;
+    margin-left: .7em;
+    font-size: .75em;
+    font-style: italic;
+}
+.article header time + a::before {
+    position: relative;
+    top: -1px;
+    padding-left: 1.1em;
+    background: url('../images/design/go-down.svg') left center no-repeat;
+    background-size: auto 1em;
+    content: '\00a0';
+}
 .article .hint::before {
     padding-left: 1.2em;
     background: url('../images/design/floral-bullet.svg') left center no-repeat;
@@ -365,6 +380,153 @@ footer[role='contentinfo'] {
 .article footer a:hover {
     background: #586e75;
     color: #eee8d5;
+}
+.article + .comments > header::before {
+    display: block;
+    height: .8rem;
+    margin-top: 1em;
+    text-align: center;
+    background: url('../images/design/separator.svg') center no-repeat;
+    background-size: contain;
+    content: '\00a0';
+}
+.article + .comments > header h3 {
+    display: inline-block;
+}
+.article + .comments > header a {
+    margin-left: 1rem;
+    font-size: 87%;
+}
+.article + .comments > ol {
+    margin: 0;
+    padding: 0;
+    font-size: 87%;
+}
+.article + .comments > ol > li {
+    margin: 1em 0;
+    padding-right: 4.5em;
+}
+.article + .comments > ol > li + li {
+    border-top: 1px solid #eee8d5;
+    padding-top: 1em;
+}
+.article + .comments > ol article {
+    min-height: 48px;
+    padding-left: 20%;
+}
+.article + .comments > ol header {
+    float: left;
+    margin-left: -25%;
+    box-sizing: border-box;
+    width: 25%;
+    padding-right: 1em;
+    font-size: .75rem;
+    font-style: italic;
+    font-weight: 300;
+}
+.article + .comments > ol header span {
+    position: absolute;
+    left: -9999em;
+}
+.article + .comments > ol header time {
+    white-space: normal;
+}
+.article + .comments > ol header + * {
+    margin-top: 0 !important;
+}
+.article + .comments > ol header ~ * {
+    overflow-wrap: break-word;
+}
+.article + .comments > ol code,
+.article + .comments > ol pre {
+    font-size: 90%;
+}
+.article + .comments > ol ol {
+    list-style-type: decimal;
+}
+.article + .comments > ol + form {
+    margin-top: 2em;
+}
+.article + .comments form legend {
+    margin: 1em 0 .5em;
+    padding: 0;
+    font-family: Lato, sans-serif;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.article + .comments form ol {
+    margin: 0;
+}
+.article + .comments form li {
+    padding-left: 12rem;
+}
+.article + .comments form label {
+    float: left;
+    margin-left: -12rem;
+    padding-top: .2em;
+}
+.article + .comments form input,
+.article + .comments form textarea {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    border: 2px solid transparent;
+    border-radius: .3em;
+    padding: .2em;
+    background: #eee8d5;
+    color: #657b83;
+    font-size: 1rem;
+    transition: border-color .3s ease,
+                box-shadow .3s ease;
+}
+.article + .comments form input:focus,
+.article + .comments form textarea:focus {
+    box-shadow: inset 0 0 .5em rgba(0, 0, 0, .1);
+    border-color: #93a1a1;
+    outline: 0;
+}
+.article + .comments form input {
+    font-family: Lato, sans-serif;
+}
+.article + .comments form textarea {
+    font-family: Inconsolata, monospace;
+}
+.article + .comments form .error {
+    color: #dc322f;
+    font-size: 75%;
+    font-style: italic;
+}
+.article + .comments form button {
+    margin-left: 12rem;
+    border: 0;
+    border-radius: .3em;
+    padding: .5em 1em;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px 0;
+    background: linear-gradient(
+        rgba(0, 0, 0, .0) 0%,
+        rgba(0, 0, 0, .0) 50%,
+        rgba(0, 0, 0, .10) 100%
+    );
+    background-color: #eee8d5;
+    color: #93a1a1;
+    font-family: Merriweather, serif;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color .3s ease,
+                background-color .3s ease,
+                border-color .3s ease;
+}
+.article + .comments form button:hover,
+.article + .comments form button:focus {
+    background: linear-gradient(
+        rgba(0, 0, 0, .0) 0%,
+        rgba(0, 0, 0, .0) 50%,
+        rgba(0, 0, 0, .30) 100%
+    );
+    background-color: #586e75;
+    color: #eee8d5;
+    outline: 0;
 }
 
 /* Archive pages */
@@ -493,5 +655,44 @@ footer[role='contentinfo'] {
         margin-right: 0;
         margin-left: 0;
         font-size: .9em;
+    }
+    .article + .comments > ol > li {
+        padding-right: 5.5em;
+    }
+    .article + .comments > ol article {
+        padding-left: 0;
+    }
+    .article + .comments > ol header {
+        float: none;
+        margin-left: 0;
+        margin-bottom: 1em;
+        width: auto;
+    }
+    .article + .comments > ol header span {
+        display: block;
+        overflow: hidden;
+        position: static;
+        width: 0;
+        height: 0;
+    }
+    .article + .comments > ol header span::before {
+        display: block;
+        content: '\00a0';
+        height: 1px;
+    }
+    .article + .comments form legend {
+        font-size: 1.1em;
+    }
+    .article + .comments form li {
+        padding-left: 0;
+    }
+    .article + .comments form label {
+        display: block;
+        float: none;
+        margin-left: 0;
+        padding-top: 0;
+    }
+    .article + .comments form button {
+        margin-left: 0;
     }
 }

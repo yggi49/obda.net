@@ -1,21 +1,29 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import codecs
 import collections
 import datetime
 import math
+import os
 import sys
 
 from flask import (Flask, render_template, render_template_string, url_for,
                    abort, request, redirect)
 from flask_flatpages import FlatPages, pygments_style_defs, pygmented_markdown
+import markdown
 from markupsafe import Markup
+import yaml
 
 
 # Configuration
 # =============
 
-pages = FlatPages()
+class EscapeHTML(markdown.extensions.Extension):
+
+    def extendMarkdown(self, md, md_globals):
+        del md.preprocessors['html_block']
+        del md.inlinePatterns['html']
 
 
 class DefaultConfig(object):
@@ -25,11 +33,17 @@ class DefaultConfig(object):
         prerendered_body = render_template_string(Markup(text))
         return pygmented_markdown(prerendered_body, pages)
 
+    @classmethod
+    def prerender_escaped(cls, text):
+        extensions = cls.FLATPAGES_MARKDOWN_EXTENSIONS + [cls.MARKDOWN_ESCAPE]
+        return markdown.markdown(text, extensions)
+
     DEBUG = False
     FLATPAGES_AUTO_RELOAD = False
     FLATPAGES_EXTENSION = '.md'
     FLATPAGES_HTML_RENDERER = prerender_jinja
     FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'tables', 'footnotes']
+    MARKDOWN_ESCAPE = EscapeHTML()
     ARTICLES_PER_PAGE = 3
     PYGMENTS_STYLE = 'solarizeddark'
 
@@ -39,6 +53,7 @@ class DefaultConfig(object):
 
 application = app = Flask(__name__)
 app.config.from_object(DefaultConfig)
+pages = FlatPages()
 pages.init_app(app)
 
 
@@ -52,6 +67,14 @@ def date_filter(d, format_string):
     return d.strftime(format_string)
 
 
+@app.template_filter()
+def pluralize(number, singular='', plural='s'):
+    if number == 1:
+        return singular
+    else:
+        return plural
+
+
 @app.template_global()
 def url_for_other_page(page):
     args = request.view_args.copy()
@@ -63,6 +86,20 @@ def url_for_other_page(page):
 def image(src, alt, title='', class_name=''):
     return render_template('figure.xhtml', src=src, alt=alt, title=title,
                            class_name=class_name)
+
+
+@app.template_global()
+def comments_enabled(page):
+    return ('published' in page.meta and not page.meta.get('draft', False) and
+            page.meta.get('comments', True))
+
+
+@app.template_global()
+def comment_count(page):
+    comment_directory = os.path.join(pages.root, page.path)
+    if not os.path.isdir(comment_directory):
+        return 0
+    return len(os.listdir(comment_directory))
 
 
 # View functions
@@ -89,10 +126,20 @@ def index(page=1):
                            pagination=pagination)
 
 
-@app.route('/<path:path>/')
+@app.route('/<path:path>/', methods=['GET', 'POST'])
 def show_page(path):
     page = pages.get_or_404(path)
-    return render_page(page)
+    data = {key: '' for key in ('name', 'email', 'website', 'comment')}
+    required_fields = ('name', 'email', 'comment')
+    form_errors = []
+    if request.method == 'POST':
+        if not comments_enabled(page):
+            abort(403)
+        data = {key: request.form[key].strip() for key in data}
+        form_errors = [key for key in required_fields if not data[key]]
+        if not form_errors:
+            return post_comment(page, data)
+    return render_page(page, form_data=data, form_errors=form_errors)
 
 
 @app.route('/tag/<tag_name>/')
@@ -128,9 +175,47 @@ def not_found(error):
 # Auxiliary functions
 # ===================
 
-def render_page(page):
+def render_page(page, **kwargs):
     template = page.meta.get('template', 'page.xhtml')
-    return render_template(template, page=page)
+    return render_template(template, page=page, comments=get_comments(page),
+                           **kwargs)
+
+
+def get_comments(page):
+    comment_directory = os.path.join(pages.root, page.path)
+    comments = []
+    if os.path.isdir(comment_directory):
+        for root, dirs, files in os.walk(comment_directory):
+            for filename in files:
+                comment_path = u'/'.join((page.path, filename))
+                comment_file = os.path.join(root, filename)
+                comment_page = pages._load_file(comment_path, comment_file)
+                comment_page.html_renderer = DefaultConfig.prerender_escaped
+                comments.append(comment_page)
+    return comments
+
+
+def post_comment(page, data):
+    comment_directory = os.path.join(pages.root, page.path)
+    if not os.path.isdir(comment_directory):
+        os.mkdir(comment_directory)
+    now = datetime.datetime.utcnow()
+    filename = 'comment-{}'.format(now.strftime('%Y-%m-%d-%H.%M.%S.%f'))
+    full_path = os.path.join(comment_directory, filename)
+    meta = {
+        'author': data['name'],
+        'email': data['email'],
+        'website': data['website'],
+        'published': now,
+    }
+    meta_yaml = yaml.safe_dump(meta, default_flow_style=False,
+                               allow_unicode=True, encoding='utf-8')
+    body = data['comment'].replace('\r\n', '\n')
+    content = meta_yaml.decode('utf-8') + '\n' + body
+    with codecs.open(full_path, 'w', encoding='utf-8') as fh:
+        fh.write(content)
+    comment_id = 'comment-{}'.format(now.strftime('%Y%m%d%H%M%S%f'))
+    return redirect(url_for('show_page', path=page.path, _anchor=comment_id))
 
 
 def blog_articles():
