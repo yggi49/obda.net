@@ -155,7 +155,7 @@ def paginate(items, page, per_page):
 # ==========
 
 class Pagination(object):
-    '''Simple pagination class – see http://flask.pocoo.org/snippets/44/'''
+    """Simple pagination class – see http://flask.pocoo.org/snippets/44/"""
 
     def __init__(self, page, per_page, total_count):
         self.page = page
@@ -177,11 +177,10 @@ class Pagination(object):
     def iter_pages(self, left_edge=2, left_current=2,
                    right_current=5, right_edge=2):
         last = 0
-        for num in range(1, self.pages + 1):
-            if (num <= left_edge or
-                    (num > self.page - left_current - 1 and
-                     num < self.page + right_current) or
-                    num > self.pages - right_edge):
+        for num in range(1, self.pages+1):
+            if any((num <= left_edge,
+                    self.page-left_current-1 < num < self.page+right_current,
+                    num > self.pages - right_edge)):
                 if last + 1 != num:
                     yield None
                 yield num
