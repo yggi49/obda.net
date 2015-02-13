@@ -10,6 +10,7 @@ import sys
 
 from flask import (Flask, render_template, render_template_string, url_for,
                    abort, request, redirect)
+from flaskext.gravatar import Gravatar
 from flask_flatpages import FlatPages, pygments_style_defs, pygmented_markdown
 import markdown
 from markupsafe import Markup
@@ -53,6 +54,7 @@ class DefaultConfig(object):
 
 application = app = Flask(__name__)
 app.config.from_object(DefaultConfig)
+gravatar = Gravatar(app, size=48, default='identicon')
 pages = FlatPages()
 pages.init_app(app)
 
