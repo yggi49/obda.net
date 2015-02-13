@@ -35,9 +35,9 @@ class DefaultConfig(object):
         return pygmented_markdown(prerendered_body, pages)
 
     @classmethod
-    def prerender_escaped(cls, text):
+    def prerender_escaped(cls, page):
         extensions = cls.FLATPAGES_MARKDOWN_EXTENSIONS + [cls.MARKDOWN_ESCAPE]
-        return markdown.markdown(text, extensions)
+        return markdown.markdown(page.body, extensions)
 
     DEBUG = False
     FLATPAGES_AUTO_RELOAD = False
