@@ -1,2 +1,3 @@
 *.pyc
 /pages/blog/*.draft.md
+/.idea/
