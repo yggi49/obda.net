@@ -136,19 +136,21 @@ blockquote::before {
 }
 a {
     border-bottom: 1px dotted transparent;
-    color: #268bd2;
     text-decoration: none;
     transition: background-color .3s ease,
                 border-color .3s ease;
 }
-a:visited {
+a, a code {
+    color: #268bd2;
+}
+a:visited, a:visited code {
     color: #6c71c4;
 }
 a:hover {
     border-bottom-color: #93a1a1;
     background: #eee8d5;
 }
-a:active {
+a:active, a:active code {
     color: #d33682;
 }
 em, i {
