@@ -645,10 +645,15 @@ footer[role='contentinfo'] {
         font-size: 1.4rem;
     }
     main {
+        margin-top: .5em;
         padding: 4em .5em 1em;
     }
     main::before, main::after {
         content: none;
+    }
+    main :target::before {
+        height: 2.5rem;
+        margin-top: -2.5rem;
     }
     footer[role='contentinfo'] {
         padding-right: .5em;
