@@ -57,7 +57,7 @@ li p {
 ul li::before {
     position: absolute;
     top: .3em;
-    left: -1.2em;
+    left: -1.4em;
     height: .85rem;
     width: 1rem;
     background: url('../images/design/flower.svg') left center no-repeat;
@@ -120,8 +120,7 @@ th {
 }
 blockquote {
     position: relative;
-    margin-right: 2em;
-    margin-left: 3em;
+    margin: 1em 2em 1em 3em;
     border-left: 3px solid #eee8d5;
     padding-left: .5em;
     font-style: italic;
@@ -152,10 +151,10 @@ a:hover {
 a:active {
     color: #d33682;
 }
-em {
+em, i {
     font-style: italic;
 }
-strong {
+strong, b {
     font-weight: bold;
 }
 small {
@@ -343,6 +342,9 @@ footer[role='contentinfo'] {
     background: url('../images/design/floral-bullet.svg') left center no-repeat;
     background-size: auto .7em;
     content: '\00a0';
+}
+.article ol {
+    list-style-type: decimal;
 }
 .article footer {
     margin: 1.5em 0 1em;
