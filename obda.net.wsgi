@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from collections import Counter
+import collections
 import datetime
 import math
 import sys
@@ -90,23 +90,24 @@ def index(page=1):
 
 
 @app.route('/<path:path>/')
-def page(path):
+def show_page(path):
     page = pages.get_or_404(path)
     return render_page(page)
 
 
-@app.route('/tag/<tag>/')
-def tag(tag):
-    articles = (a for a in blog_articles() if tag in a.meta.get('tags', []))
-    return render_template('tag.xhtml', tag=tag, articles=articles)
+@app.route('/tag/<tag_name>/')
+def tag(tag_name):
+    articles = (a for a in blog_articles()
+                if tag_name in a.meta.get('tags', []))
+    return render_template('tag.xhtml', tag=tag_name, articles=articles)
 
 
 @app.route('/tags/')
 def tags():
-    tags = Counter()
+    tag_names = collections.Counter()
     for article in blog_articles():
-        tags.update(article.meta.get('tags', []))
-    return render_template('tags.xhtml', tags=tags)
+        tag_names.update(article.meta.get('tags', []))
+    return render_template('tags.xhtml', tags=tag_names)
 
 
 @app.route('/archives/')
