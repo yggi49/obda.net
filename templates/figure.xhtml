@@ -1,5 +1,8 @@
 <figure {%- if class_name %} class='{{ class_name }}' {%- endif %}>
-    <img src='{{ url_for('static', filename=['images', src]|join('/')) }}' alt='{{ alt }}' />
+    {%- if not src.startswith('http://') and not src.startswith('https://') %}
+    {%- set src = url_for('static', filename=['images', src]|join('/')) %}
+    {%- endif %}
+    <img src='{{ src }}' alt='{{ alt }}' />
     {%- if title %}
     <figcaption>{{ title }}</figcaption>
     {%- endif %}
