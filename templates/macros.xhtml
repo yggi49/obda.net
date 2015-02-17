@@ -17,10 +17,11 @@
         {%- if article.meta.published %}
         <time datetime='{{ article.meta.published|date('%Y-%m-%d') }}'>{{ article.meta.published|date('%B %e, %Y') }}</time>
         {%- endif %}
-        {%- if comments_enabled(article) or comment_count(article) %}
+        {%- set num_comments = comment_count(article) %}
+        {%- if comments_enabled(article) or num_comments %}
         <a href='{{ url_for('show_page', path=article.path, _anchor='comments') }}'>
-            {%- if comment_count(article) -%}
-            {{ comment_count(article) }} comment{{ comment_count(article)|pluralize }}
+            {%- if num_comments -%}
+            {{ num_comments }} comment{{ num_comments|pluralize }}
             {%- else -%}
             Add a comment
             {%- endif -%}

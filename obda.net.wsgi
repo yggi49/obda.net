@@ -9,7 +9,7 @@ import os
 import sys
 
 from flask import (Flask, render_template, render_template_string, url_for,
-                   abort, request, redirect)
+                   abort, request, redirect, g)
 from flaskext.gravatar import Gravatar
 from flask_flatpages import FlatPages, pygments_style_defs, pygmented_markdown
 import markdown
@@ -102,10 +102,7 @@ def comments_enabled(page):
 
 @app.template_global()
 def comment_count(page):
-    comment_directory = os.path.join(pages.root, page.path)
-    if not os.path.isdir(comment_directory):
-        return 0
-    return len(os.listdir(comment_directory))
+    return len(comment_directory_list(page))
 
 
 # View functions
@@ -187,17 +184,30 @@ def render_page(page, **kwargs):
                            **kwargs)
 
 
-def get_comments(page):
+def comment_directory_list(page):
+    if 'comment_directory_list' not in g:
+        g.comment_directory_list = {}
+    if page in g.comment_directory_list:
+        return g.comment_directory_list[page]
     comment_directory = os.path.join(pages.root, page.path)
-    comments = []
+    directory_list = []
     if os.path.isdir(comment_directory):
-        for root, dirs, files in os.walk(comment_directory):
-            for filename in files:
-                comment_path = u'/'.join((page.path, filename))
-                comment_file = os.path.join(root, filename)
-                comment_page = pages._load_file(comment_path, comment_file)
-                comment_page.html_renderer = DefaultConfig.prerender_escaped
-                comments.append(comment_page)
+        directory_list = [
+            {'path': u'/'.join((page.path, filename)),
+             'file': os.path.join(root, filename)}
+            for root, dirs, files in os.walk(comment_directory)
+            for filename in files
+        ]
+    g.comment_directory_list[page] = directory_list
+    return directory_list
+
+
+def get_comments(page):
+    comments = []
+    for comment in comment_directory_list(page):
+        comment_page = pages._load_file(comment['path'], comment['file'])
+        comment_page.html_renderer = DefaultConfig.prerender_escaped
+        comments.append(comment_page)
     return comments
 
 
