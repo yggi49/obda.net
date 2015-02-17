@@ -70,7 +70,11 @@
                 </li>
             </ol>
         </fieldset>
-        <fieldset>
+        <fieldset class='actions'>
+            {%- if 'csrf' in form_errors %}
+            <p class='error'>Your session has expired.  Please submit your comment again.</p>
+            {%- endif %}
+            <input type='hidden' name='csrf_token' value='{{ csrf_token(page.path) }}' />
             <button type='submit' tabindex='5'>Submit Comment</button>
         </fieldset>
     </form>

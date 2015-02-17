@@ -7,9 +7,10 @@ import datetime
 import math
 import os
 import sys
+import uuid
 
 from flask import (Flask, render_template, render_template_string, url_for,
-                   abort, request, redirect, g)
+                   abort, request, redirect, session, g)
 from flaskext.gravatar import Gravatar
 from flask_flatpages import FlatPages, pygments_style_defs, pygmented_markdown
 import markdown
@@ -40,6 +41,7 @@ class DefaultConfig(object):
         return markdown.markdown(page.body, extensions)
 
     DEBUG = False
+    SECRET_KEY = 'changeme'
     FLATPAGES_AUTO_RELOAD = False
     FLATPAGES_EXTENSION = '.md'
     FLATPAGES_HTML_RENDERER = prerender_jinja
@@ -105,6 +107,18 @@ def comment_count(page):
     return len(comment_directory_list(page))
 
 
+@app.template_global()
+def csrf_token(key):
+    if 'csrf_tokens' not in session:
+        session['csrf_tokens'] = {}
+    token = str(uuid.uuid4())
+    session['csrf_tokens'][key] = {
+        'token': token,
+        'timestamp': datetime.datetime.utcnow(),
+    }
+    return token
+
+
 # View functions
 # ==============
 
@@ -140,6 +154,8 @@ def show_page(path):
             abort(403)
         data = {key: request.form[key].strip() for key in data}
         form_errors = [key for key in required_fields if not data[key]]
+        if not validate_csrf(page):
+            form_errors.append('csrf')
         if not form_errors:
             return post_comment(page, data)
     return render_page(page, form_data=data, form_errors=form_errors)
@@ -169,14 +185,24 @@ def archives():
 # Error handling
 # ==============
 
+def errorpage(code):
+    page = pages.get('error-{}'.format(code))
+    return render_page(page), code
+
+
+@app.errorhandler(403)
+def forbidden(error):
+    return errorpage(403)
+
+
 @app.errorhandler(404)
 def not_found(error):
-    page = pages.get('error-404')
-    return render_page(page), 404
+    return errorpage(404)
 
 
 # Auxiliary functions
 # ===================
+
 
 def render_page(page, **kwargs):
     template = page.meta.get('template', 'page.xhtml')
@@ -209,6 +235,20 @@ def get_comments(page):
         comment_page.html_renderer = DefaultConfig.prerender_escaped
         comments.append(comment_page)
     return comments
+
+
+def validate_csrf(page):
+    assert request.method == 'POST', 'CSRF validation on non-POST request'
+    path = page.path
+    if 'csrf_tokens' not in session or path not in session['csrf_tokens']:
+        abort(403)
+    csrf = session['csrf_tokens'].pop(path)
+    if not csrf or csrf['token'] != request.form.get('csrf_token'):
+        abort(403)
+    csrf_age = datetime.datetime.utcnow() - csrf['timestamp']
+    if csrf_age.total_seconds() >= 15 * 60:
+        return False
+    return True
 
 
 def post_comment(page, data):

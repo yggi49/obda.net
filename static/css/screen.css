@@ -507,8 +507,13 @@ footer[role='contentinfo'] {
     font-size: 75%;
     font-style: italic;
 }
-.article + .comments form button {
+.article + .comments form fieldset.actions {
     margin-left: 12rem;
+}
+.article + .comments form fieldset.actions p {
+    margin-top: 0;
+}
+.article + .comments form button {
     border: 0;
     border-radius: .3em;
     padding: .5em 1em;
@@ -708,7 +713,7 @@ footer[role='contentinfo'] {
         margin-left: 0;
         padding-top: 0;
     }
-    .article + .comments form button {
+    .article + .comments form fieldset.actions {
         margin-left: 0;
     }
 }
