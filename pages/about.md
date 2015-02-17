@@ -42,6 +42,7 @@ Software and technologies used to produce and host this site:
   * [Fabric](http://www.fabfile.org)
   * [Flask](http://flask.pocoo.org)
   * [Flask-FlatPages](https://pypi.python.org/pypi/Flask-FlatPages)
+  * [Flask-Gravatar](https://pypi.python.org/pypi/Flask-Gravatar)
   * [Gentoo Linux](http://www.gentoo.org)
   * [Gimp](http://www.gimp.org/)
   * [GNU Emacs](https://www.gnu.org/software/emacs/)
