@@ -45,8 +45,10 @@ class DefaultConfig(object):
     FLATPAGES_HTML_RENDERER = prerender_jinja
     FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'tables', 'footnotes']
     MARKDOWN_ESCAPE = EscapeHTML()
-    ARTICLES_PER_PAGE = 3
     PYGMENTS_STYLE = 'solarizeddark'
+    ARTICLES_PER_PAGE = 3
+    GRAVATAR_SIZE = 48
+    GRAVATAR_DEFAULT = 'identicon'
 
 
 # Application setup
@@ -54,7 +56,8 @@ class DefaultConfig(object):
 
 application = app = Flask(__name__)
 app.config.from_object(DefaultConfig)
-gravatar = Gravatar(app, size=48, default='identicon')
+gravatar = Gravatar(app, size=app.config['GRAVATAR_SIZE'],
+                    default=app.config['GRAVATAR_DEFAULT'])
 pages = FlatPages()
 pages.init_app(app)
 
