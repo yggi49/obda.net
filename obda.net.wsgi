@@ -56,6 +56,7 @@ class DefaultConfig(object):
 
 application = app = Flask(__name__)
 app.config.from_object(DefaultConfig)
+app.config.from_envvar('OBDA_SETTINGS', silent=True)
 gravatar = Gravatar(app, size=app.config['GRAVATAR_SIZE'],
                     default=app.config['GRAVATAR_DEFAULT'])
 pages = FlatPages()
