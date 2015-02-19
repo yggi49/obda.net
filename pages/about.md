@@ -18,7 +18,6 @@ browsers and image editing.
   * [yelster digital GmbH](http://www.yelsterdigital.com)—employee
   * [Salzburg Python User Group](http://salzpug.at)—co-founder
   * [49ersFanZone.net](http://49ersFanZone.net)—founder
-  * [Salzburg Bulls](http://www.salzburg-bulls.at/)—board member
 
 ### GnuPG
 
