@@ -289,7 +289,6 @@ main sup a {
     font-weight: normal;
 }
 
-
 /* Footer */
 footer[role='contentinfo'] {
     padding: 1em 0;
@@ -685,6 +684,10 @@ footer[role='contentinfo'] {
     .article + .comments > ol > li {
         padding-right: 5.5em;
     }
+}
+
+/* Medium Screens */
+@media screen and (max-width: 60em) {
     .article + .comments > ol article {
         padding-left: 0;
     }
