@@ -1,6 +1,10 @@
 {% extends 'layout.xhtml' %}
 {% import 'macros.xhtml' as macros %}
 
+{%- block title -%}
+{{ page.title }} – {{ super() }}
+{%- endblock -%}
+
 {% block content %}
 {{ macros.render_article(page) }}
 {%- if comments or comments_enabled(page) %}

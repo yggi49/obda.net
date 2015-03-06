@@ -1,6 +1,10 @@
 {% extends 'layout.xhtml' %}
 {% import 'macros.xhtml' as macros %}
 
+{%- block title -%}
+Tags – {{ super() }}
+{%- endblock -%}
+
 {% block content %}
 <article class='archive'>
     <h2>Tags</h2>
