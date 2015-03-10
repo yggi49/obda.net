@@ -183,6 +183,9 @@ blockquote code {
     margin-right: .1em;
     margin-left: .1em;
 }
+blockquote pre {
+    font-style: normal;
+}
 
 /* Header */
 header[role='banner'] {
