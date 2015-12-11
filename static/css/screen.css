@@ -277,12 +277,9 @@ main::after {
     );
     content: '\00a0';
 }
-main :target::before {
-    display: block;
-    height: 5rem;
+main :target {
     margin-top: -5rem;
-    content: ' ';
-    visibility: hidden;
+    padding-top: 5rem;
 }
 main a {
     font-weight: bold;
@@ -608,9 +605,9 @@ footer[role='contentinfo'] {
 }
 .footnote ol {
     margin-left: 0;
+    list-style-position: inside;
 }
 .footnote li:target p {
-    margin-top: 0;
     background: #eee8d5;
 }
 
@@ -672,9 +669,9 @@ footer[role='contentinfo'] {
     main::before, main::after {
         content: none;
     }
-    main :target::before {
-        height: 2.5rem;
+    main :target {
         margin-top: -2.5rem;
+        padding-top: 2.5rem;
     }
     footer[role='contentinfo'] {
         padding-right: .5em;
