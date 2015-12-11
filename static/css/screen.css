@@ -177,7 +177,7 @@ code {
     line-height: 1.2;
 }
 code, pre {
-    font-family: Inconsolata, monospace;
+    font-family: 'Fantasque Sans Mono', monospace;
 }
 blockquote code {
     margin-right: .1em;
@@ -518,7 +518,7 @@ footer[role='contentinfo'] {
     font-family: Lato, sans-serif;
 }
 .article + .comments form textarea {
-    font-family: Inconsolata, monospace;
+    font-family: 'Fantasque Sans Mono', monospace;
 }
 .article + .comments form .error {
     color: #dc322f;
