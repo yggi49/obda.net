@@ -29,13 +29,23 @@
         {%- endif %}
     </header>
 {{ article.html|safe }}
-    {%- if article.meta.tags or article.meta.updated %}
+    {%- if article.meta.tags or article.meta.updated or article.meta.refs %}
     <footer>
         <dl>
+        {%- if article.meta.refs %}
+            <dt>References</dt>
+            <dd class='refs'>
+                <ol>
+            {%- for ref in article.meta.refs %}
+                    <li>{{ ref|markdown }}</li>
+            {%- endfor %}
+                </ol>
+            </dd>
+        {%- endif %}
         {%- if article.meta.tags %}
             <dt>Tagged</dt>
             {%- for tag in article.meta.tags %}
-            <dd><a href='{{ url_for('tag', tag_name=tag) }}'>{{ tag }}</a></dd>
+            <dd class='tags'><a href='{{ url_for('tag', tag_name=tag) }}'>{{ tag }}</a></dd>
             {%- endfor %}
         {%- endif %}
         {%- if article.meta.updated %}

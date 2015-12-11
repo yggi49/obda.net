@@ -68,6 +68,11 @@ pages.init_app(app)
 # Template filters & globals
 # ==========================
 
+@app.template_filter('markdown')
+def markdown_filter(s):
+    return Markup(markdown.markdown(s))
+
+
 @app.template_filter('date')
 def date_filter(d, format_string):
     if d is None:

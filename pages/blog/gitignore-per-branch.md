@@ -1,6 +1,9 @@
 title: '.gitignore per branch'
 published: 2015-05-18
 tags: [git]
+refs:
+    - '[Git excludesfile for a
+      branch](http://stackoverflow.com/a/29583813/192916) (Stack Overflow)'
 
 Git does not support to ignore files based on the current branch.  Patterns
 listed in any `.gitignore` file as well as in `.git/info/exclude` are always
@@ -47,7 +50,5 @@ it will symlink `exclude.__default__` instead.
 
 Modify this script as needed, save it as `.git/hooks/post-checkout`, and make
 it executable—et voilà.
-
-*Inspired by <http://stackoverflow.com/a/29583813/192916>.*
 
 [1]: http://git-scm.com/docs/githooks#_post_checkout

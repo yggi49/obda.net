@@ -368,7 +368,21 @@ footer[role='contentinfo'] {
     display: inline;
     margin: 0 .1em;
 }
-.article footer a {
+.article footer dd.refs {
+    display: block;
+    margin-bottom: .7em;
+}
+.article footer dd.refs ol {
+    margin: 0 0 0 2em;
+    list-style-type: lower-alpha;
+}
+.article footer dd.refs li {
+    margin: 0;
+}
+.article footer dd.refs p {
+    margin: 0;
+}
+.article footer dd.tags a {
     border: 0;
     border-radius: .3em;
     padding: .2em .5em;
@@ -380,7 +394,7 @@ footer[role='contentinfo'] {
                 border-color .3s ease,
                 color .3s ease;
 }
-.article footer a:hover {
+.article footer dd.tags a:hover {
     background: #586e75;
     color: #eee8d5;
 }
