@@ -37,6 +37,7 @@ browsers and image editing.
 Software and technologies used to produce and host this site:
 
   * [Apache HTTP Server](http://projects.apache.org/projects/http_server.html)
+    with [mod_wsgi](http://modwsgi.readthedocs.org/)
   * [CSS](http://www.w3.org/TR/CSS/)
   * [Fabric](http://www.fabfile.org)
   * [Flask](http://flask.pocoo.org)
@@ -53,7 +54,7 @@ Software and technologies used to produce and host this site:
   * [Python](http://pythonhosted.org/Markdown/)-[Markdown](http://daringfireball.net/projects/markdown/)
   * [Solarized](http://ethanschoonover.com/solarized)
   * [tmux](http://tmux.sourceforge.net/)
-  * [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html)
+  * [st](http://st.suckless.org/)
   * [Zsh](http://www.zsh.org/)
 
 I fiddled around with static site generators like
@@ -64,8 +65,9 @@ stumbled upon [Nicolas Perriault’s][1] blog post
 working with Flask since circa 2010, this was the logical choice for this
 site.
 
-That said, this site is *not* statically hosted, as I intend to add a simple
-commenting system for blog posts eventually.
+That said, this site is *not* statically hosted, as I <del>intend to</del>
+add<ins>ed</ins> a simple commenting system for blog posts
+<del>eventually</del>.
 
 You can find the entire [source code for this site on GitHub][3].
 

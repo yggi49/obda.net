@@ -159,6 +159,12 @@ em, i {
 strong, b {
     font-weight: bold;
 }
+ins {
+    text-decoration: underline;
+}
+del {
+    text-decoration: line-through;
+}
 small {
     font-size: .8em;
     font-style: italic;
