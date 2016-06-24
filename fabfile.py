@@ -5,18 +5,19 @@ from fabric.api import *
 
 
 env.use_ssh_config = True
-env.hosts = ['monty']
+env.hosts = ['len']
 
 
 def deploy():
     archive = '/tmp/obda.net.tar.gz'
-    pip = '/usr/local/pythonenv/prod-obda-website/bin/pip'
+    pip = '/srv/obda/blog/venv/bin/pip'
     local('git archive -o {} HEAD'.format(archive))
     put(archive, archive)
-    with cd('/srv/obda.net/www'):
+    with cd('/srv/obda/blog'):
         sudo('tar xzf {}'.format(archive))
         sudo('{} install -r requirements.txt'.format(pip))
         sudo('rm requirements.txt')
-    sudo('apache2ctl graceful')
+        sudo('chown -R obda:obda .')
+    sudo('touch /etc/uwsgi.d/obda.ini')
     run('rm {}'.format(archive))
     local('rm {}'.format(archive))
