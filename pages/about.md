@@ -15,9 +15,16 @@ browsers and image editing.
 
 ### Organizations
 
-  * [yelster digital GmbH](http://www.yelsterdigital.com)—employee
-  * [Salzburg Python User Group](http://salzpug.at)—co-founder
+#### Current
+
+  * [has·to·be gmbh](http://has-to-be.com)—employee
   * [49ersFanZone.net](http://49ersFanZone.net)—founder
+
+#### Former
+
+  * [Salzburg Bulls](http://salzburg-bulls.at)—board member
+  * [Salzburg Python User Group](http://salzpug.at)—co-founder
+  * [yelster digital GmbH](http://www.yelsterdigital.com)—employee
 
 ### GnuPG
 
@@ -36,8 +43,6 @@ browsers and image editing.
 
 Software and technologies used to produce and host this site:
 
-  * [Apache HTTP Server](http://projects.apache.org/projects/http_server.html)
-    with [mod_wsgi](http://modwsgi.readthedocs.org/)
   * [CSS](http://www.w3.org/TR/CSS/)
   * [Fabric](http://www.fabfile.org)
   * [Fantasque Sans Mono](http://belluzj.github.io/projects/design/fantasquesansmono-font/)
@@ -52,11 +57,13 @@ Software and technologies used to produce and host this site:
   * [Inkscape](http://www.inkscape.org/)
   * [Lato](http://www.latofonts.com/)
   * [Merriweather](https://ebensorkin.wordpress.com/)
+  * [nginx](https://www.nginx.com)
   * [Pygments](http://pygments.org/)
   * [Python](http://www.python.org)
   * [Python](http://pythonhosted.org/Markdown/)-[Markdown](http://daringfireball.net/projects/markdown/)
   * [Solarized](http://ethanschoonover.com/solarized)
   * [tmux](http://tmux.sourceforge.net/)
+  * [uWSGI](https://uwsgi-docs.readthedocs.io/)
   * [st](http://st.suckless.org/)
   * [Zsh](http://www.zsh.org/)
 
