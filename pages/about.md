@@ -1,6 +1,6 @@
 title: About
 
-{{ image('igor_256.jpg', 'My profile picture', 'Yep, that’s me!') }}
+{{ image('igor-2016-256.jpg', 'My profile picture', 'Yep, that’s me!') }}
 
 I am a full-stack web developer working with Python and Perl, at times using
 PHP for pragmatic reasons.  I have a strong affiliation for web standards;
