@@ -34,9 +34,11 @@ browsers and image editing.
 
 ### Profiles
 
+  * [AngelList](https://angel.co/clemens-kaposi)
   * [GitHub](https://github.com/yggi49)
   * [LinkedIn](http://at.linkedin.com/in/ckaposi)
   * [StackOverflow](http://stackoverflow.com/users/192916/igor)
+  * [Twitter](https://twitter.com/yggi49)
   * [XING](https://www.xing.com/profile/Clemens_Kaposi)
 
 ### Powered by …
