@@ -625,7 +625,7 @@ footer[role='contentinfo'] {
 }
 .footnote ol {
     margin-left: 0;
-    list-style-position: inside;
+    padding-left: 1rem;
 }
 .footnote li:target p {
     background: #eee8d5;
