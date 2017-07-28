@@ -421,8 +421,10 @@ footer[role='contentinfo'] {
     display: inline-block;
     margin-top: .2em;
 }
-.article + .comments > header a {
+.article + .comments > header h3 ~ * {
     margin-left: 1rem;
+}
+.article + .comments > header a {
     font-size: 87%;
 }
 .article + .comments > ol {
