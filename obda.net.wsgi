@@ -151,7 +151,8 @@ def index(page=1):
 @app.route('/<path:path>/', methods=['GET', 'POST'])
 def show_page(path):
     page = pages.get_or_404(path)
-    data = {key: '' for key in ('name', 'email', 'website', 'comment')}
+    data = {key: ''
+            for key in ('name', 'email', 'website', 'comment', 'verification')}
     required_fields = ('name', 'email', 'comment')
     form_errors = []
     if request.method == 'POST':
@@ -257,6 +258,10 @@ def validate_csrf(page):
 
 
 def post_comment(page, data):
+    # the `verification` field serves as the honeypot – it should be empty
+    if data['verification']:
+        return redirect(url_for('show_page', path=page.path))
+    # we *think* that the user is not a bot
     comment_directory = os.path.join(pages.root, page.path)
     if not os.path.isdir(comment_directory):
         os.mkdir(comment_directory)

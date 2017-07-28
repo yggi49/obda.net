@@ -75,6 +75,11 @@
                     {%- endif %}
                     <small>You may use <a href='https://pythonhosted.org/Markdown/'>Markdown</a> (sans HTML) for formatting.</small>
                 </li>
+                <li>
+                    <label for='comment-verification'>Verification</label>
+                    <input id='comment-verification' name='verification' type='text' value='{{ form_data.verification }}' />
+                    <small>Leave this field empty.</small>
+                </li>
             </ol>
         </fieldset>
         <fieldset class='actions'>
