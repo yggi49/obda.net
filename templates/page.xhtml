@@ -80,6 +80,14 @@
                     {%- endif %}
                     <small>You may use <a href='https://pythonhosted.org/Markdown/'>Markdown</a> (sans HTML) for formatting.</small>
                 </li>
+                <li>
+                    <label for='comment-captcha'>Challenge</label>
+                    <p>How many legs do spiders usually have?</p>
+                    <input id='comment-captcha' name='captcha' type='number' value='{{ form_data.captcha }}' />
+                    {%- if 'captcha' in form_errors %}
+                    <p class='error'>Oops …  wrong answer!</p>
+                    {%- endif %}
+                </li>
             </ol>
         </fieldset>
         <fieldset class='actions'>

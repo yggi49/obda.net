@@ -152,7 +152,8 @@ def index(page=1):
 def show_page(path):
     page = pages.get_or_404(path)
     data = {key: ''
-            for key in ('name', 'email', 'website', 'comment', 'verification')}
+            for key in ('name', 'email', 'verification', 'website', 'comment',
+                        'captcha')}
     required_fields = ('name', 'email', 'comment')
     form_errors = []
     if request.method == 'POST':
@@ -162,6 +163,8 @@ def show_page(path):
         form_errors = [key for key in required_fields if not data[key]]
         if not validate_csrf(page):
             form_errors.append('csrf')
+        if data['captcha'] != '8':
+            form_errors.append('captcha')
         if not form_errors:
             return post_comment(page, data)
     return render_page(page, form_data=data, form_errors=form_errors)

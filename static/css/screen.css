@@ -501,6 +501,9 @@ footer[role='contentinfo'] {
     position: absolute;
     left: -200em;
 }
+.article + .comments form li:last-child p {
+    padding-top: .2em;
+}
 .article + .comments form label {
     float: left;
     margin-left: -12rem;
