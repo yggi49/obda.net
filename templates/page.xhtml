@@ -64,6 +64,11 @@
                     {%- endif %}
                 </li>
                 <li>
+                    <label for='comment-verification'>Verification</label>
+                    <input id='comment-verification' name='verification' type='email' value='{{ form_data.verification }}' />
+                    <small>Leave this field empty.</small>
+                </li>
+                <li>
                     <label for='comment-website'>Website <small>(optional)</small></label>
                     <input id='comment-website' name='website' type='url' value='{{ form_data.website }}' tabindex='3' />
                 </li>
@@ -74,11 +79,6 @@
                     <p class='error'>Please enter your comment.</p>
                     {%- endif %}
                     <small>You may use <a href='https://pythonhosted.org/Markdown/'>Markdown</a> (sans HTML) for formatting.</small>
-                </li>
-                <li>
-                    <label for='comment-verification'>Verification</label>
-                    <input id='comment-verification' name='verification' type='text' value='{{ form_data.verification }}' />
-                    <small>Leave this field empty.</small>
                 </li>
             </ol>
         </fieldset>

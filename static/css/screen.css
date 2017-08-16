@@ -497,7 +497,7 @@ footer[role='contentinfo'] {
 .article + .comments form li {
     padding-left: 12rem;
 }
-.article + .comments form li:last-child {
+.article + .comments form li:nth-child(3) {
     position: absolute;
     left: -200em;
 }
