@@ -57,14 +57,14 @@
                     {%- endif %}
                 </li>
                 <li>
-                    <label for='comment-email'>Email (not published)</label>
+                    <label for='comment-email'>Email <small>(not published)</small></label>
                     <input id='comment-email' name='email' type='email' required='required' value='{{ form_data.email }}' tabindex='2' />
                     {%- if 'email' in form_errors %}
                     <p class='error'>Please enter your email address.</p>
                     {%- endif %}
                 </li>
                 <li>
-                    <label for='comment-website'>Website (optional)</label>
+                    <label for='comment-website'>Website <small>(optional)</small></label>
                     <input id='comment-website' name='website' type='url' value='{{ form_data.website }}' tabindex='3' />
                 </li>
                 <li>
