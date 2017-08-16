@@ -51,7 +51,7 @@
             <ol>
                 <li>
                     <label for='comment-name'>Name</label>
-                    <input id='comment-name' name='name' type='text' value='{{ form_data.name }}' tabindex='1' />
+                    <input id='comment-name' name='name' type='text' required='required' value='{{ form_data.name }}' tabindex='1' />
                     {%- if 'name' in form_errors %}
                     <p class='error'>Please enter your name.</p>
                     {%- endif %}
