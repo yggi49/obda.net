@@ -1,7 +1,7 @@
 cffi==1.7.0
 cryptography==1.4
 enum34==1.1.6
-Fabric==1.10.1
+Fabric==1.14.0
 Flask==0.10.1
 Flask-FlatPages==0.6
 Flask-Gravatar==0.4.1
@@ -19,4 +19,3 @@ pygments-style-solarized==0.1.1
 PyYAML==3.11
 six==1.10.0
 Werkzeug==0.11.10
-wheel==0.24.0
