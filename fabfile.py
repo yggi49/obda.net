@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from fabric.api import *
+from fabric.api import env, local, put, cd, sudo, run
 
 
 env.use_ssh_config = True
