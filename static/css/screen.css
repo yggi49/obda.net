@@ -159,6 +159,18 @@ em, i {
 strong, b {
     font-weight: bold;
 }
+abbr[title] {
+    border-bottom: 1px dashed #93a1a1;
+    text-decoration: none;
+    cursor: help;
+    transition: border-color .3s ease;
+}
+a abbr[title] {
+    cursor: pointer;
+}
+a:hover abbr[title] {
+    border-bottom-color: transparent;
+}
 ins {
     text-decoration: underline;
 }
