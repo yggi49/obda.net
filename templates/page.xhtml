@@ -82,8 +82,8 @@
                 </li>
                 <li>
                     <label for='comment-captcha'>Challenge</label>
-                    <p>How many legs do spiders usually have?</p>
-                    <input id='comment-captcha' name='captcha' type='number' value='{{ form_data.captcha }}' />
+                    <p>How many legs do spiders usually have? <small>(Write the number as a word.)</small></p>
+                    <input id='comment-captcha' name='captcha' type='text' value='{{ form_data.captcha }}' />
                     {%- if 'captcha' in form_errors %}
                     <p class='error'>Oops …  wrong answer!</p>
                     {%- endif %}

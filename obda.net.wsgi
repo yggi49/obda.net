@@ -163,7 +163,7 @@ def show_page(path):
         form_errors = [key for key in required_fields if not data[key]]
         if not validate_csrf(page):
             form_errors.append('csrf')
-        if data['captcha'] != '8':
+        if data['captcha'] != 'eight':
             form_errors.append('captcha')
         if not form_errors:
             return post_comment(page, data)
