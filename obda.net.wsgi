@@ -102,8 +102,8 @@ def url_for_other_page(page):
 
 @app.template_global()
 def image(src, alt, title='', class_name=''):
-    return render_template('figure.xhtml', src=src, alt=alt, title=title,
-                           class_name=class_name)
+    return Markup(render_template('figure.xhtml', src=src, alt=alt, title=title,
+                           class_name=class_name))
 
 
 @app.template_global()
