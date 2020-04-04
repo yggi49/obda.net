@@ -11,7 +11,7 @@ import uuid
 
 from flask import (Flask, render_template, render_template_string, url_for,
                    abort, request, redirect, session, g)
-from flaskext.gravatar import Gravatar
+from flask_gravatar import Gravatar
 from flask_flatpages import FlatPages, pygments_style_defs, pygmented_markdown
 import markdown
 from markupsafe import Markup
@@ -46,6 +46,11 @@ class DefaultConfig(object):
     FLATPAGES_EXTENSION = '.md'
     FLATPAGES_HTML_RENDERER = prerender_jinja
     FLATPAGES_MARKDOWN_EXTENSIONS = ['codehilite', 'tables', 'footnotes']
+    FLATPAGES_EXTENSION_CONFIGS = {
+        'codehilite': {
+            'guess_lang': False,
+        }
+    }
     MARKDOWN_ESCAPE = EscapeHTML()
     PYGMENTS_STYLE = 'solarizeddark'
     ARTICLES_PER_PAGE = 3
