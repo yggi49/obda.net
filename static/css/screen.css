@@ -198,7 +198,7 @@ sup {
 time {
     white-space: nowrap;
 }
-code, pre {
+code, pre, kbd {
     font-family: 'Fantasque Sans Mono', monospace;
 }
 p code {
@@ -215,6 +215,16 @@ blockquote code {
 }
 blockquote pre {
     font-style: normal;
+}
+kbd {
+    margin-left: .2em;
+    margin-right: .2em;
+    border: 1px solid #657b83;
+    border-radius: .2em;
+    padding: .2em .4em;
+    background-color: #eee8d5;
+    box-shadow: 0px 1px 0px #93a1a1, inset 0px 0px 0px 2px #fdf6e3;
+    font-size: .9em;
 }
 
 /* Header */
