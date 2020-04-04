@@ -189,13 +189,16 @@ sup {
 time {
     white-space: nowrap;
 }
-code {
+code, pre {
+    font-family: 'Fantasque Sans Mono', monospace;
+}
+p code {
     color: #b58900;
     font-size: 1.15em;
     line-height: 1.2;
 }
-code, pre {
-    font-family: 'Fantasque Sans Mono', monospace;
+pre {
+    line-height: 1.5;
 }
 blockquote code {
     margin-right: .1em;
