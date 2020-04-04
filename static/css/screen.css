@@ -118,6 +118,15 @@ td, th {
 th {
     font-weight: bold;
 }
+q {
+    font-style: italic;
+}
+q:before {
+    content: '“';
+}
+q:after {
+    content: '”';
+}
 blockquote {
     position: relative;
     margin: 1em 2em 1em 3em;
