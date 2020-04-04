@@ -9,22 +9,22 @@ import os
 import sys
 import uuid
 
+import markdown
+import yaml
 from flask import (
+    abort,
     Flask,
+    g,
+    redirect,
     render_template,
     render_template_string,
-    url_for,
-    abort,
     request,
-    redirect,
     session,
-    g,
+    url_for,
 )
+from flask_flatpages import FlatPages, pygmented_markdown, pygments_style_defs
 from flask_gravatar import Gravatar
-from flask_flatpages import FlatPages, pygments_style_defs, pygmented_markdown
-import markdown
 from markupsafe import Markup
-import yaml
 
 
 # Configuration

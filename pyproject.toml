@@ -15,12 +15,14 @@ pygments-style-solarized = "^0.1.1"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
-
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+flake8 = "^3.7.9"
+flake8-import-order = "^0.18.1"
 
 [tool.black]
 line-length = 79
 target-version = ["py36"]
 include = "\\.(py|wsgi)$"
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
