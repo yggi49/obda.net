@@ -46,7 +46,7 @@ class DefaultConfig(object):
     @classmethod
     def prerender_escaped(cls, page):
         extensions = cls.FLATPAGES_MARKDOWN_EXTENSIONS + [cls.MARKDOWN_ESCAPE]
-        return markdown.markdown(page.body, extensions)
+        return markdown.markdown(page.body, extensions=extensions)
 
     DEBUG = False
     SECRET_KEY = "changeme"
