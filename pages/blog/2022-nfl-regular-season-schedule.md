@@ -1,5 +1,5 @@
 title: 2022 NFL Regular Season Schedule
-published: 2021-05-13
+published: 2022-05-13
 tags: [nfl, football]
 
 Just as last year, I created a printable graphics with the new NFL regular
