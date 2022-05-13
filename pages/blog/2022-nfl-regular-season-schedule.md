@@ -16,4 +16,4 @@ season schedule:
 
 Feel free to download a [PDF
 version](/static/files/nfl-schedule-2022.pdf) (7.3 MiB) or a [high-resolution
-PNG image](/static/images/nfl-schedule-2021.full.png) (2100 × 1486, 2.2 MiB)!
+PNG image](/static/images/nfl-schedule-2022.full.png) (2100 × 1486, 2.2 MiB)!
