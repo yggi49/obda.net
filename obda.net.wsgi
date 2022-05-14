@@ -56,7 +56,7 @@ class DefaultConfig(object):
     FLATPAGES_MARKDOWN_EXTENSIONS = ["codehilite", "tables", "footnotes"]
     FLATPAGES_EXTENSION_CONFIGS = {"codehilite": {"guess_lang": False}}
     MARKDOWN_ESCAPE = EscapeHTML()
-    PYGMENTS_STYLE = "solarizeddark"
+    PYGMENTS_STYLE = "solarized-dark"
     ARTICLES_PER_PAGE = 3
     GRAVATAR_SIZE = 48
     GRAVATAR_DEFAULT = "identicon"

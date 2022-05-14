@@ -1,18 +1,18 @@
 [[package]]
-category = "dev"
-description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 name = "appdirs"
+version = "1.4.3"
+description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+category = "dev"
 optional = false
 python-versions = "*"
-version = "1.4.3"
 
 [[package]]
-category = "dev"
-description = "Classes Without Boilerplate"
 name = "attrs"
+version = "19.3.0"
+description = "Classes Without Boilerplate"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "19.3.0"
 
 [package.extras]
 azure-pipelines = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "pytest-azurepipelines"]
@@ -21,27 +21,27 @@ docs = ["sphinx", "zope.interface"]
 tests = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
 
 [[package]]
-category = "dev"
-description = "Modern password hashing for your software and your servers"
 name = "bcrypt"
+version = "3.1.7"
+description = "Modern password hashing for your software and your servers"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "3.1.7"
 
 [package.dependencies]
 cffi = ">=1.1"
 six = ">=1.4.1"
 
 [package.extras]
-tests = ["pytest (>=3.2.1,<3.3.0 || >3.3.0)"]
+tests = ["pytest (>=3.2.1,!=3.3.0)"]
 
 [[package]]
-category = "dev"
-description = "The uncompromising code formatter."
 name = "black"
+version = "19.10b0"
+description = "The uncompromising code formatter."
+category = "dev"
 optional = false
 python-versions = ">=3.6"
-version = "19.10b0"
 
 [package.dependencies]
 appdirs = "*"
@@ -56,58 +56,58 @@ typed-ast = ">=1.4.0"
 d = ["aiohttp (>=3.3.2)", "aiohttp-cors"]
 
 [[package]]
-category = "dev"
-description = "Foreign Function Interface for Python calling C code."
 name = "cffi"
+version = "1.14.0"
+description = "Foreign Function Interface for Python calling C code."
+category = "dev"
 optional = false
 python-versions = "*"
-version = "1.14.0"
 
 [package.dependencies]
 pycparser = "*"
 
 [[package]]
-category = "main"
-description = "Composable command line interface toolkit"
 name = "click"
+version = "7.1.1"
+description = "Composable command line interface toolkit"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "7.1.1"
 
 [[package]]
-category = "dev"
-description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
 name = "cryptography"
+version = "2.9"
+description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
+category = "dev"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
-version = "2.9"
 
 [package.dependencies]
 cffi = ">=1.8,<1.11.3 || >1.11.3"
 six = ">=1.4.1"
 
 [package.extras]
-docs = ["sphinx (>=1.6.5,<1.8.0 || >1.8.0)", "sphinx-rtd-theme"]
+docs = ["sphinx (>=1.6.5,!=1.8.0)", "sphinx-rtd-theme"]
 docstest = ["doc8", "pyenchant (>=1.6.11)", "twine (>=1.12.0)", "sphinxcontrib-spelling (>=4.0.1)"]
 idna = ["idna (>=2.1)"]
 pep8test = ["flake8", "flake8-import-order", "pep8-naming"]
-test = ["pytest (>=3.6.0,<3.9.0 || >3.9.0,<3.9.1 || >3.9.1,<3.9.2 || >3.9.2)", "pretend", "iso8601", "pytz", "hypothesis (>=1.11.4,<3.79.2 || >3.79.2)"]
+test = ["pytest (>=3.6.0,!=3.9.0,!=3.9.1,!=3.9.2)", "pretend", "iso8601", "pytz", "hypothesis (>=1.11.4,!=3.79.2)"]
 
 [[package]]
-category = "dev"
-description = "Discover and load entry points from installed packages."
 name = "entrypoints"
+version = "0.3"
+description = "Discover and load entry points from installed packages."
+category = "dev"
 optional = false
 python-versions = ">=2.7"
-version = "0.3"
 
 [[package]]
-category = "dev"
-description = "High level SSH command execution"
 name = "fabric"
+version = "2.5.0"
+description = "High level SSH command execution"
+category = "dev"
 optional = false
 python-versions = "*"
-version = "2.5.0"
 
 [package.dependencies]
 invoke = ">=1.3,<2.0"
@@ -118,12 +118,12 @@ pytest = ["mock (>=2.0.0,<3.0)", "pytest (>=3.2.5,<4.0)"]
 testing = ["mock (>=2.0.0,<3.0)"]
 
 [[package]]
-category = "dev"
-description = "the modular source code checker: pep8, pyflakes and co"
 name = "flake8"
+version = "3.7.9"
+description = "the modular source code checker: pep8, pyflakes and co"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "3.7.9"
 
 [package.dependencies]
 entrypoints = ">=0.3.0,<0.4.0"
@@ -132,30 +132,29 @@ pycodestyle = ">=2.5.0,<2.6.0"
 pyflakes = ">=2.1.0,<2.2.0"
 
 [[package]]
-category = "dev"
-description = "Flake8 and pylama plugin that checks the ordering of import statements."
 name = "flake8-import-order"
+version = "0.18.1"
+description = "Flake8 and pylama plugin that checks the ordering of import statements."
+category = "dev"
 optional = false
 python-versions = "*"
-version = "0.18.1"
 
 [package.dependencies]
 pycodestyle = "*"
-setuptools = "*"
 
 [[package]]
-category = "main"
-description = "A simple framework for building complex web applications."
 name = "flask"
+version = "1.1.2"
+description = "A simple framework for building complex web applications."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "1.1.2"
 
 [package.dependencies]
-Jinja2 = ">=2.10.1"
-Werkzeug = ">=0.15"
 click = ">=5.1"
 itsdangerous = ">=0.24"
+Jinja2 = ">=2.10.1"
+Werkzeug = ">=0.15"
 
 [package.extras]
 dev = ["pytest", "coverage", "tox", "sphinx", "pallets-sphinx-themes", "sphinxcontrib-log-cabinet", "sphinx-issues"]
@@ -163,12 +162,12 @@ docs = ["sphinx", "pallets-sphinx-themes", "sphinxcontrib-log-cabinet", "sphinx-
 dotenv = ["python-dotenv"]
 
 [[package]]
-category = "main"
-description = "Provides flat static pages to a Flask application"
 name = "flask-flatpages"
+version = "0.7.1"
+description = "Provides flat static pages to a Flask application"
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.7.1"
 
 [package.dependencies]
 Flask = ">1.0"
@@ -181,12 +180,12 @@ docs = ["Sphinx (>=1.4)"]
 tests = ["Pygments (>=1.6)"]
 
 [[package]]
-category = "main"
-description = "Small extension for Flask to make usage of Gravatar service easy."
 name = "flask-gravatar"
+version = "0.5.0"
+description = "Small extension for Flask to make usage of Gravatar service easy."
+category = "main"
 optional = false
 python-versions = "*"
-version = "0.5.0"
 
 [package.dependencies]
 Flask = ">=0.10"
@@ -197,28 +196,28 @@ docs = ["Sphinx (>=1.4.2)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)"]
 
 [[package]]
-category = "dev"
-description = "Pythonic task execution"
 name = "invoke"
+version = "1.4.1"
+description = "Pythonic task execution"
+category = "dev"
 optional = false
 python-versions = "*"
-version = "1.4.1"
 
 [[package]]
-category = "main"
-description = "Various helpers to pass data to untrusted environments and back."
 name = "itsdangerous"
+version = "1.1.0"
+description = "Various helpers to pass data to untrusted environments and back."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.1.0"
 
 [[package]]
-category = "main"
-description = "A very fast and expressive template engine."
 name = "jinja2"
+version = "2.11.1"
+description = "A very fast and expressive template engine."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "2.11.1"
 
 [package.dependencies]
 MarkupSafe = ">=0.23"
@@ -227,42 +226,39 @@ MarkupSafe = ">=0.23"
 i18n = ["Babel (>=0.8)"]
 
 [[package]]
-category = "main"
-description = "Python implementation of Markdown."
 name = "markdown"
+version = "3.2.1"
+description = "Python implementation of Markdown."
+category = "main"
 optional = false
 python-versions = ">=3.5"
-version = "3.2.1"
-
-[package.dependencies]
-setuptools = ">=36"
 
 [package.extras]
 testing = ["coverage", "pyyaml"]
 
 [[package]]
-category = "main"
-description = "Safely add untrusted strings to HTML/XML markup."
 name = "markupsafe"
+version = "1.1.1"
+description = "Safely add untrusted strings to HTML/XML markup."
+category = "main"
 optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
-version = "1.1.1"
 
 [[package]]
-category = "dev"
-description = "McCabe checker, plugin for flake8"
 name = "mccabe"
+version = "0.6.1"
+description = "McCabe checker, plugin for flake8"
+category = "dev"
 optional = false
 python-versions = "*"
-version = "0.6.1"
 
 [[package]]
-category = "dev"
-description = "SSH2 protocol library"
 name = "paramiko"
+version = "2.7.1"
+description = "SSH2 protocol library"
+category = "dev"
 optional = false
 python-versions = "*"
-version = "2.7.1"
 
 [package.dependencies]
 bcrypt = ">=3.1.3"
@@ -276,63 +272,52 @@ gssapi = ["pyasn1 (>=0.1.7)", "gssapi (>=1.4.1)", "pywin32 (>=2.1.8)"]
 invoke = ["invoke (>=1.3)"]
 
 [[package]]
-category = "dev"
-description = "Utility library for gitignore style pattern matching of file paths."
 name = "pathspec"
+version = "0.7.0"
+description = "Utility library for gitignore style pattern matching of file paths."
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "0.7.0"
 
 [[package]]
-category = "dev"
-description = "Python style guide checker"
 name = "pycodestyle"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.5.0"
+description = "Python style guide checker"
+category = "dev"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
-category = "dev"
-description = "C parser in Python"
 name = "pycparser"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.20"
-
-[[package]]
+description = "C parser in Python"
 category = "dev"
-description = "passive checker of Python programs"
-name = "pyflakes"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
+name = "pyflakes"
 version = "2.1.1"
-
-[[package]]
-category = "main"
-description = "Pygments is a syntax highlighting package written in Python."
-name = "pygments"
-optional = false
-python-versions = ">=3.5"
-version = "2.6.1"
-
-[[package]]
-category = "main"
-description = "Pygments version of the Solarized theme."
-name = "pygments-style-solarized"
-optional = false
-python-versions = "*"
-version = "0.1.1"
-
-[package.dependencies]
-pygments = ">=1.5"
-
-[[package]]
+description = "passive checker of Python programs"
 category = "dev"
-description = "Python binding to the Networking and Cryptography (NaCl) library"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+
+[[package]]
+name = "pygments"
+version = "2.12.0"
+description = "Pygments is a syntax highlighting package written in Python."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "pynacl"
+version = "1.3.0"
+description = "Python binding to the Networking and Cryptography (NaCl) library"
+category = "dev"
 optional = false
 python-versions = "*"
-version = "1.3.0"
 
 [package.dependencies]
 cffi = ">=1.4.1"
@@ -340,63 +325,64 @@ six = "*"
 
 [package.extras]
 docs = ["sphinx (>=1.6.5)", "sphinx-rtd-theme"]
-tests = ["pytest (>=3.2.1,<3.3.0 || >3.3.0)", "hypothesis (>=3.27.0)"]
+tests = ["pytest (>=3.2.1,!=3.3.0)", "hypothesis (>=3.27.0)"]
 
 [[package]]
-category = "main"
-description = "YAML parser and emitter for Python"
 name = "pyyaml"
-optional = false
-python-versions = "*"
 version = "5.3.1"
-
-[[package]]
-category = "dev"
-description = "Alternative regular expression module, to replace re."
-name = "regex"
+description = "YAML parser and emitter for Python"
+category = "main"
 optional = false
 python-versions = "*"
-version = "2020.2.20"
 
 [[package]]
+name = "regex"
+version = "2020.2.20"
+description = "Alternative regular expression module, to replace re."
 category = "dev"
-description = "Python 2 and 3 compatibility utilities"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "six"
+version = "1.14.0"
+description = "Python 2 and 3 compatibility utilities"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
-version = "1.14.0"
 
 [[package]]
-category = "dev"
-description = "Python Library for Tom's Obvious, Minimal Language"
 name = "toml"
-optional = false
-python-versions = "*"
 version = "0.10.0"
-
-[[package]]
+description = "Python Library for Tom's Obvious, Minimal Language"
 category = "dev"
-description = "a fork of Python 2 and 3 ast modules with type comment support"
-name = "typed-ast"
 optional = false
 python-versions = "*"
-version = "1.4.1"
 
 [[package]]
-category = "main"
-description = "The comprehensive WSGI web application library."
+name = "typed-ast"
+version = "1.4.1"
+description = "a fork of Python 2 and 3 ast modules with type comment support"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "werkzeug"
+version = "1.0.1"
+description = "The comprehensive WSGI web application library."
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-version = "1.0.1"
 
 [package.extras]
 dev = ["pytest", "pytest-timeout", "coverage", "tox", "sphinx", "pallets-sphinx-themes", "sphinx-issues"]
 watchdog = ["watchdog"]
 
 [metadata]
-content-hash = "26d3a31b73f655b9ab0ad8a5b3d225db05e620c5ead7cac3e6ef95193f26c83f"
+lock-version = "1.1"
 python-versions = "^3.6"
+content-hash = "7d380439d90ffa599977b87e30272b311729d31c7a391593c86981a2a0b633a5"
 
 [metadata.files]
 appdirs = [
@@ -591,11 +577,8 @@ pyflakes = [
     {file = "pyflakes-2.1.1.tar.gz", hash = "sha256:d976835886f8c5b31d47970ed689944a0262b5f3afa00a5a7b4dc81e5449f8a2"},
 ]
 pygments = [
-    {file = "Pygments-2.6.1-py3-none-any.whl", hash = "sha256:ff7a40b4860b727ab48fad6360eb351cc1b33cbf9b15a0f689ca5353e9463324"},
-    {file = "Pygments-2.6.1.tar.gz", hash = "sha256:647344a061c249a3b74e230c739f434d7ea4d8b1d5f3721bc0f3558049b38f44"},
-]
-pygments-style-solarized = [
-    {file = "pygments-style-solarized-0.1.1.tar.gz", hash = "sha256:7c7c26d2c7787058881f444a7228b0139791bad7e9448e3e0fc3b4bdafcb6f4a"},
+    {file = "Pygments-2.12.0-py3-none-any.whl", hash = "sha256:dc9c10fb40944260f6ed4c688ece0cd2048414940f1cea51b8b226318411c519"},
+    {file = "Pygments-2.12.0.tar.gz", hash = "sha256:5eb116118f9612ff1ee89ac96437bb6b49e8f04d8a13b514ba26f620208e26eb"},
 ]
 pynacl = [
     {file = "PyNaCl-1.3.0-cp27-cp27m-macosx_10_6_intel.whl", hash = "sha256:2424c8b9f41aa65bbdbd7a64e73a7450ebb4aa9ddedc6a081e7afcc4c97f7621"},
