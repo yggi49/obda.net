@@ -17,6 +17,7 @@ pygments-style-solarized = "^0.1.1"
 black = "^19.10b0"
 flake8 = "^3.7.9"
 flake8-import-order = "^0.18.1"
+fabric = "^2.5.0"
 
 [tool.black]
 line-length = 79
