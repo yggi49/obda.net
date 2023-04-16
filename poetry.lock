@@ -293,14 +293,14 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-flatpages"
-version = "0.7.3"
+version = "0.8.1"
 description = "Provides flat static pages to a Flask application"
 category = "main"
 optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
 files = [
-    {file = "Flask-FlatPages-0.7.3.tar.gz", hash = "sha256:18b6305e367a3423c9b12a4dbca0900d18ed401c2f301e983790b4d023767d6f"},
-    {file = "Flask_FlatPages-0.7.3-py2.py3-none-any.whl", hash = "sha256:b8d7a88b6e75ea11ce4ada3b7d1ec723ba5b5ddc26458e82925e66f43e9dbe3f"},
+    {file = "Flask-FlatPages-0.8.1.tar.gz", hash = "sha256:ee6b389a93558f66ae626cebc86ff99f299f6b972d2cdd8db9fb9b8a3deed1aa"},
+    {file = "Flask_FlatPages-0.8.1-py2.py3-none-any.whl", hash = "sha256:d6626b4fafd3dbe48e40fa91ac5c0e8aced1dcb7f7b77beb5fa583a995b64abf"},
 ]
 
 [package.dependencies]
@@ -819,4 +819,4 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "0fee6dd37753d82cebb1597db7a65ccae34a5d77be112962135e5f0134aa399d"
+content-hash = "57dfe4971454071175c0ccce6eab4c2f541eab38e744591b1b2372c025c95e5b"
