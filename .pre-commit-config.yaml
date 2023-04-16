@@ -24,6 +24,11 @@ repos:
           - "--markdown-linebreak-ext=md,jinja"
         exclude: .bumpversion.cfg
 
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.0.261"
+    hooks:
+      - id: ruff
+
   - repo: https://github.com/psf/black
     rev: 23.3.0
     hooks:

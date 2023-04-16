@@ -16,12 +16,21 @@ Pygments = "^2.15.0"
 black = "^23.3.0"
 fabric = "^2.5.0"
 xenon = "^0.9.0"
+ruff = "^0.0.261"
 
 [tool.black]
 line-length = 79
 target-version = ["py310"]
 include = "\\.(py|wsgi)$"
+
+[tool.ruff]
+line-length = 79
+select = ["ALL"]
+target-version = "py310"
+
+[tool.ruff.pydocstyle]
+convention = "pep257"
+
 [build-system]
 requires = ["poetry~=1.4.2"]
 build-backend = "poetry.masonry.api"
-
