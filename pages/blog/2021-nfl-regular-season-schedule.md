@@ -11,7 +11,7 @@ season, so I ended up creating one myself:
 
 {{
    image(
-       'nfl-schedule-2021.jpg', 
+       'nfl-schedule-2021.jpg',
        'The 2021 NFL regular season schedule',
        'The 2021 NFL regular season schedule',
        class_name='here',
