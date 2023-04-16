@@ -25,8 +25,14 @@ include = "\\.(py|wsgi)$"
 
 [tool.ruff]
 line-length = 79
-select = ["ALL"]
 target-version = "py310"
+select = ["ALL"]
+ignore = [
+    "ANN101",  # Missing type annotation for `self` in method
+    "ANN102",  # Missing type annotation for `cls` in classmethod
+    "D103",  # Missing docstring in public function.  TODO: add missing docs
+    "PTH",  # User Pathlib instead of os.*.  TODO: migrate to Pathlib
+]
 
 [tool.ruff.pydocstyle]
 convention = "pep257"

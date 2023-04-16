@@ -1,19 +1,19 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""The obda.net blog."""
 
 import codecs
-import collections
 import datetime
 import math
 import os
 import sys
 import uuid
+from collections.abc import Counter, Iterable, Iterator
 
 import markdown
 import yaml
 from flask import (
-    abort,
     Flask,
+    abort,
     g,
     redirect,
     render_template,
@@ -22,34 +22,46 @@ from flask import (
     session,
     url_for,
 )
-from flask_flatpages import FlatPages, pygmented_markdown, pygments_style_defs
+from flask_flatpages import (
+    FlatPages,
+    Page,
+    pygmented_markdown,
+    pygments_style_defs,
+)
 from flask_gravatar import Gravatar
 from markupsafe import Markup
-
+from werkzeug import Response
 
 # Configuration
 # =============
 
 
 class EscapeHTML(markdown.extensions.Extension):
-    def extendMarkdown(self, md, md_globals):
+    """Markdown extension to escape HTML instead of rendering."""
+
+    def extendMarkdown(self, md: markdown.Markdown) -> None:  # noqa: N802
+        """Remove HTML preprocessors from the Markdown renderer."""
         del md.preprocessors["html_block"]
         del md.inlinePatterns["html"]
 
 
-class DefaultConfig(object):
+class DefaultConfig:
+    """The Flask configuration object."""
+
     @staticmethod
-    def prerender_jinja(text):
+    def prerender_jinja(text: str) -> str:
+        """Render a text through Jinja first, and then through Markdown."""
         prerendered_body = render_template_string(Markup(text))
         return pygmented_markdown(prerendered_body, pages)
 
     @classmethod
-    def prerender_escaped(cls, page):
-        extensions = cls.FLATPAGES_MARKDOWN_EXTENSIONS + [cls.MARKDOWN_ESCAPE]
+    def prerender_escaped(cls, page: Page) -> str:
+        """Render a text through Markdown, but without rendering HTML."""
+        extensions = [*cls.FLATPAGES_MARKDOWN_EXTENSIONS, cls.MARKDOWN_ESCAPE]
         return markdown.markdown(page.body, extensions=extensions)
 
     DEBUG = False
-    SECRET_KEY = "changeme"
+    SECRET_KEY = "changeme"  # noqa: S105
     FLATPAGES_AUTO_RELOAD = False
     FLATPAGES_EXTENSION = ".md"
     FLATPAGES_HTML_RENDERER = prerender_jinja
@@ -83,34 +95,34 @@ pages.init_app(app)
 
 
 @app.template_filter("markdown")
-def markdown_filter(s):
+def markdown_filter(s: str) -> str:
     return Markup(markdown.markdown(s))
 
 
 @app.template_filter("date")
-def date_filter(d, format_string):
+def date_filter(d: datetime.datetime, format_string: str) -> str:
+    """Format a date according to a given format string."""
     if d is None:
-        d = datetime.datetime.utcnow()
+        d = datetime.datetime.now(datetime.timezone.utc)
     return d.strftime(format_string)
 
 
 @app.template_filter()
-def pluralize(number, singular="", plural="s"):
+def pluralize(number: int, singular: str = "", plural: str = "s") -> str:
     if number == 1:
         return singular
-    else:
-        return plural
+    return plural
 
 
 @app.template_global()
-def url_for_other_page(page):
+def url_for_other_page(page: Page) -> str:
     args = request.view_args.copy()
     args["page"] = page
     return url_for(request.endpoint, **args)
 
 
 @app.template_global()
-def image(src, alt, title="", class_name=""):
+def image(src: str, alt: str, title: str = "", class_name: str = "") -> str:
     return Markup(
         render_template(
             "figure.xhtml",
@@ -118,12 +130,13 @@ def image(src, alt, title="", class_name=""):
             alt=alt,
             title=title,
             class_name=class_name,
-        )
+        ),
     )
 
 
 @app.template_global()
-def comments_enabled(page):
+def comments_enabled(page: Page) -> bool:
+    """Return whether comments are enabled for a given page."""
     return (
         "published" in page.meta
         and not page.meta.get("draft", False)
@@ -132,18 +145,20 @@ def comments_enabled(page):
 
 
 @app.template_global()
-def comment_count(page):
+def comment_count(page: Page) -> int:
+    """Return the number of comments for a page."""
     return len(comment_directory_list(page))
 
 
 @app.template_global()
-def csrf_token(key):
+def csrf_token(key: str) -> str:
+    """Return a CSRF token."""
     if "csrf_tokens" not in session:
         session["csrf_tokens"] = {}
     token = str(uuid.uuid4())
     session["csrf_tokens"][key] = {
         "token": token,
-        "timestamp": datetime.datetime.utcnow(),
+        "timestamp": datetime.datetime.now(datetime.timezone.utc),
     }
     return token
 
@@ -153,30 +168,38 @@ def csrf_token(key):
 
 
 @app.route("/favicon.ico")
-def favicon():
+def favicon() -> Response:
+    """Return a redirect to the correct favicon."""
     return redirect(url_for("static", filename="images/favicon.ico"))
 
 
 @app.route("/pygments.css")
-def pygments_css():
+def pygments_css() -> tuple[str, int, dict[str, str]]:
+    """Return the Pygments style file as CSS."""
     style = app.config["PYGMENTS_STYLE"]
     return pygments_style_defs(style), 200, {"Content-Type": "text/css"}
 
 
 @app.route("/")
 @app.route("/page/<int:page>/")
-def index(page=1):
+def index(page: int = 1) -> str:
+    """Render the blog index at a given page."""
     articles = blog_articles()
     articles, pagination = paginate(
-        articles, page, app.config["ARTICLES_PER_PAGE"]
+        articles,
+        page,
+        app.config["ARTICLES_PER_PAGE"],
     )
     return render_template(
-        "index.xhtml", articles=articles, pagination=pagination
+        "index.xhtml",
+        articles=articles,
+        pagination=pagination,
     )
 
 
 @app.route("/<path:path>/", methods=["GET", "POST"])
-def show_page(path):
+def show_page(path: str) -> str:
+    """Render the page at the given path."""
     page = pages.get_or_404(path)
     data = {
         key: ""
@@ -206,7 +229,8 @@ def show_page(path):
 
 
 @app.route("/tag/<tag_name>/")
-def tag(tag_name):
+def tag(tag_name: str) -> str:
+    """Render a page with a list of all articles for a given tag."""
     articles = (
         a for a in blog_articles() if tag_name in a.meta.get("tags", [])
     )
@@ -214,15 +238,17 @@ def tag(tag_name):
 
 
 @app.route("/tags/")
-def tags():
-    tag_names = collections.Counter()
+def tags() -> str:
+    """Render a page with a list of all defined tags."""
+    tag_names = Counter()
     for article in blog_articles():
         tag_names.update(article.meta.get("tags", []))
     return render_template("tags.xhtml", tags=tag_names)
 
 
 @app.route("/archives/")
-def archives():
+def archives() -> str:
+    """Render an archive page with links to all articles."""
     articles = list(blog_articles())
     return render_template("archives.xhtml", articles=articles)
 
@@ -231,18 +257,21 @@ def archives():
 # ==============
 
 
-def errorpage(code):
-    page = pages.get("error-{}".format(code))
+def errorpage(code: int) -> tuple[str, int]:
+    """Render an error page for given HTTP code."""
+    page = pages.get(f"error-{code}")
     return render_page(page), code
 
 
 @app.errorhandler(403)
-def forbidden(error):
+def forbidden(_error: Exception) -> tuple[str, int]:
+    """Render an error page for HTTP 403 “Forbidden”."""
     return errorpage(403)
 
 
 @app.errorhandler(404)
-def not_found(error):
+def not_found(_error: Exception) -> tuple[str, int]:
+    """Render an error page for HTTP 404 “Forbidden”."""
     return errorpage(404)
 
 
@@ -250,14 +279,19 @@ def not_found(error):
 # ===================
 
 
-def render_page(page, **kwargs):
+def render_page(page: Page, **kwargs: dict) -> str:
+    """Render a specific page."""
     template = page.meta.get("template", "page.xhtml")
     return render_template(
-        template, page=page, comments=get_comments(page), **kwargs
+        template,
+        page=page,
+        comments=get_comments(page),
+        **kwargs,
     )
 
 
-def comment_directory_list(page):
+def comment_directory_list(page: Page) -> list[dict]:
+    """Return a list of all comment files for a specific page."""
     if "comment_directory_list" not in g:
         g.comment_directory_list = {}
     if page in g.comment_directory_list:
@@ -271,44 +305,52 @@ def comment_directory_list(page):
                 "file": os.path.join(root, filename),
             }
             for root, dirs, files in os.walk(comment_directory)
-            for filename in reversed(sorted(files))
+            for filename in sorted(files, reverse=True)
         ]
     g.comment_directory_list[page] = directory_list
     return directory_list
 
 
-def get_comments(page):
+def get_comments(page: Page) -> list[Page]:
+    """Return all comments for an article as a list of :class:`Page`s."""
     comments = []
     for comment in comment_directory_list(page):
-        comment_page = pages._load_file(comment["path"], comment["file"])
+        comment_page = pages._load_file(  # noqa: SLF001
+            comment["path"],
+            comment["file"],
+        )
         comment_page.html_renderer = DefaultConfig.prerender_escaped
         comments.append(comment_page)
     return comments
 
 
-def validate_csrf(page):
-    assert request.method == "POST", "CSRF validation on non-POST request"
+def validate_csrf(page: Page) -> bool:
+    """Validate the CSRF token for a given page on a POST request."""
+    if request.method != "POST":
+        abort(403)
     path = page.path
     if "csrf_tokens" not in session or path not in session["csrf_tokens"]:
         abort(403)
     csrf = session["csrf_tokens"].pop(path)
     if not csrf or csrf["token"] != request.form.get("csrf_token"):
         abort(403)
-    csrf_age = datetime.datetime.utcnow() - csrf["timestamp"]
+    now = datetime.datetime.now(datetime.timezone.utc)
+    csrf_age = now - csrf["timestamp"]
     if csrf_age.total_seconds() >= 15 * 60:
         return False
     return True
 
 
-def post_comment(page, data):
-    # the `verification` field serves as the honeypot – it should be empty
+def post_comment(page: Page, data: dict) -> Response:
+    """Add a new comment to a given article."""
+    # the `verification` field serves as the honeypot; it should be empty
     if data["verification"]:
         return redirect(url_for("show_page", path=page.path))
     # we *think* that the user is not a bot
     comment_directory = os.path.join(pages.root, page.path)
     if not os.path.isdir(comment_directory):
         os.mkdir(comment_directory)
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.timezone.utc)
     filename = "comment-{}".format(now.strftime("%Y-%m-%d-%H.%M.%S.%f"))
     full_path = os.path.join(comment_directory, filename)
     meta = {
@@ -318,7 +360,10 @@ def post_comment(page, data):
         "published": now,
     }
     meta_yaml = yaml.safe_dump(
-        meta, default_flow_style=False, allow_unicode=True, encoding="utf-8"
+        meta,
+        default_flow_style=False,
+        allow_unicode=True,
+        encoding="utf-8",
     )
     body = data["comment"].replace("\r\n", "\n")
     content = meta_yaml.decode("utf-8") + "\n" + body
@@ -328,17 +373,22 @@ def post_comment(page, data):
     return redirect(url_for("show_page", path=page.path, _anchor=comment_id))
 
 
-def blog_articles():
+def blog_articles() -> Iterable[Page]:
     # Blog articles are pages with a publication date
     articles = (
         page
         for page in pages
         if "published" in page.meta and not page.meta.get("draft")
     )
-    return reversed(sorted(articles, key=lambda a: a.meta["published"]))
+    return sorted(articles, key=lambda a: a.meta["published"], reverse=True)
 
 
-def paginate(items, page, per_page):
+def paginate(
+    items: Iterable,
+    page: int,
+    per_page: int,
+) -> tuple[list, "Pagination"]:
+    """Paginte an iterable."""
     items = list(items)
     count = len(items)
     lower_index = (page - 1) * per_page
@@ -354,29 +404,38 @@ def paginate(items, page, per_page):
 # ==========
 
 
-class Pagination(object):
-    """Simple pagination class – see http://flask.pocoo.org/snippets/44/"""
+class Pagination:
+    """Simple pagination class - see http://flask.pocoo.org/snippets/44/."""
 
-    def __init__(self, page, per_page, total_count):
+    def __init__(self, page: int, per_page: int, total_count: int) -> None:
+        """Create a new :class:`Pagination` instance."""
         self.page = page
         self.per_page = per_page
         self.total_count = total_count
 
     @property
-    def pages(self):
+    def pages(self) -> int:
+        """Return the total number of pages."""
         return int(math.ceil(self.total_count / float(self.per_page)))
 
     @property
-    def has_prev(self):
+    def has_prev(self) -> bool:
+        """Return whether there is a “previous” page."""
         return self.page > 1
 
     @property
-    def has_next(self):
+    def has_next(self) -> bool:
+        """Return whether there is a “next” page."""
         return self.page < self.pages
 
     def iter_pages(
-        self, left_edge=2, left_current=2, right_current=5, right_edge=2
-    ):
+        self,
+        left_edge: int = 2,
+        left_current: int = 2,
+        right_current: int = 5,
+        right_edge: int = 2,
+    ) -> Iterator[int | None]:
+        """Iterate over pages, to be used for creating a navigation bar."""
         last = 0
         for num in range(1, self.pages + 1):
             if any(
@@ -386,7 +445,7 @@ class Pagination(object):
                     < num
                     < self.page + right_current,
                     num > self.pages - right_edge,
-                )
+                ),
             ):
                 if last + 1 != num:
                     yield None
