@@ -53,6 +53,7 @@ class DefaultConfig(object):
     FLATPAGES_AUTO_RELOAD = False
     FLATPAGES_EXTENSION = ".md"
     FLATPAGES_HTML_RENDERER = prerender_jinja
+    FLATPAGES_LEGACY_META_PARSER = True
     FLATPAGES_MARKDOWN_EXTENSIONS = ["codehilite", "tables", "footnotes"]
     FLATPAGES_EXTENSION_CONFIGS = {"codehilite": {"guess_lang": False}}
     MARKDOWN_ESCAPE = EscapeHTML()
