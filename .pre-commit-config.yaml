@@ -1,0 +1,47 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-toml
+        name: TOML Syntax Checking
+      - id: check-yaml
+        name: YAML Syntax Checking
+      - id: check-json
+        name: JSON Syntax Checking
+      - id: pretty-format-json
+        name: JSON Code Formatting
+        args:
+          - "--autofix"
+          - "--indent"
+          - "4"
+          - "--no-ensure-ascii"
+      - id: end-of-file-fixer
+        name: Final Newline Checking
+      - id: trailing-whitespace
+        name: Trailing Whitespace Checking
+        args:
+          - "--markdown-linebreak-ext=md,jinja"
+        exclude: .bumpversion.cfg
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        name: Black Code Formatting
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.30.0
+    hooks:
+      - id: yamllint
+        name: YAML Style Checking
+
+  - repo: https://github.com/yunojuno/pre-commit-xenon
+    rev: v0.1
+    hooks:
+      - id: xenon
+        name: Xenon Code Complexity Checking
+        args:
+          - "--max-absolute=B"
+          - "--max-modules=A"
+          - "--max-average=A"
