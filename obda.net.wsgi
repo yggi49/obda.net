@@ -9,6 +9,7 @@ import sys
 import uuid
 from collections import Counter
 from collections.abc import Iterable, Iterator
+from typing import Any
 
 import markdown
 import sentry_sdk
@@ -210,7 +211,7 @@ def index(page: int = 1) -> str:
 
 
 @app.route("/<path:path>/", methods=["GET", "POST"])
-def show_page(path: str) -> str:
+def show_page(path: str) -> str | Response:
     """Render the page at the given path."""
     page = pages.get_or_404(path)
     data = {
@@ -291,7 +292,7 @@ def not_found(_error: Exception) -> tuple[str, int]:
 # ===================
 
 
-def render_page(page: Page, **kwargs: dict) -> str:
+def render_page(page: Page, **kwargs: Any) -> str:  # noqa: ANN401
     """Render a specific page."""
     template = page.meta.get("template", "page.xhtml")
     return render_template(
