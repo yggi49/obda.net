@@ -183,7 +183,7 @@ def csrf_token(key: str) -> str:
 @app.route("/favicon.ico")
 def favicon() -> Response:
     """Return a redirect to the correct favicon."""
-    return redirect(url_for("static", filename="images/favicon.ico"))
+    return redirect(url_for("static", filename="images/favicon.ico"), 308)
 
 
 @app.route("/pygments.css")
