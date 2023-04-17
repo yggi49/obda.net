@@ -24,7 +24,7 @@ def deploy(ctx: Connection, version: str) -> None:
     ctx.sudo(
         "perl -p -i -e "
         f"""'s/VERSION = "development"/VERSION = "{version}"/g' """
-        "/srv/obda/blog/obda.net.wsgi",
+        "/srv/obda/blog/obda.py",
     )
     ctx.sudo("chown -R obda:obda /srv/obda/blog")
     ctx.sudo("supervisorctl stop obda:obda-net")
