@@ -1,4 +1,0 @@
-[flake8]
-import-order-style = edited
-filename = *.py, *.wsgi
-ignore = D105, D107, D203, E203, W503
