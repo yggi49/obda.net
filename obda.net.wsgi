@@ -55,8 +55,8 @@ class DefaultConfig:
     @staticmethod
     def prerender_jinja(text: str) -> str:
         """Render a text through Jinja first, and then through Markdown."""
-        prerendered_body = render_template_string(Markup(text))
-        return pygmented_markdown(prerendered_body, pages)
+        pre_rendered_body = render_template_string(Markup(text))
+        return pygmented_markdown(pre_rendered_body, pages)
 
     @classmethod
     def prerender_escaped(cls, page: Page) -> str:
@@ -270,7 +270,7 @@ def archives() -> str:
 # ==============
 
 
-def errorpage(code: int) -> tuple[str, int]:
+def error_page(code: int) -> tuple[str, int]:
     """Render an error page for given HTTP code."""
     page = pages.get(f"error-{code}")
     return render_page(page), code
@@ -279,13 +279,13 @@ def errorpage(code: int) -> tuple[str, int]:
 @app.errorhandler(403)
 def forbidden(_error: Exception) -> tuple[str, int]:
     """Render an error page for HTTP 403 “Forbidden”."""
-    return errorpage(403)
+    return error_page(403)
 
 
 @app.errorhandler(404)
 def not_found(_error: Exception) -> tuple[str, int]:
     """Render an error page for HTTP 404 “Forbidden”."""
-    return errorpage(404)
+    return error_page(404)
 
 
 # Auxiliary functions
@@ -403,7 +403,7 @@ def paginate(
     page: int,
     per_page: int,
 ) -> tuple[list, "Pagination"]:
-    """Paginte an iterable."""
+    """Paginate an iterable."""
     items = list(items)
     count = len(items)
     lower_index = (page - 1) * per_page
@@ -420,7 +420,7 @@ def paginate(
 
 
 class Pagination:
-    """Simple pagination class - see http://flask.pocoo.org/snippets/44/."""
+    """Simple pagination class."""
 
     def __init__(self, page: int, per_page: int, total_count: int) -> None:
         """Create a new :class:`Pagination` instance."""
