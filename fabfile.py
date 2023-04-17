@@ -16,7 +16,7 @@ def deploy(ctx: Connection, version: str) -> None:
     archive = "/tmp/obda.net.tar.gz"  # noqa: S108
     requirements = "/tmp/obda.net.requirements.txt"  # noqa: S108
     local(f"git archive -o {archive} HEAD")
-    local(f"poetry export -o {requirements}")
+    local(f"poetry export --with server -o {requirements}")
     for path in (archive, requirements):
         ctx.put(path, path)
     ctx.sudo(f"tar -C /srv/obda/blog -xzf {archive}")
@@ -27,7 +27,9 @@ def deploy(ctx: Connection, version: str) -> None:
         "/srv/obda/blog/obda.net.wsgi",
     )
     ctx.sudo("chown -R obda:obda /srv/obda/blog")
-    ctx.sudo("touch /etc/uwsgi.d/obda.ini")
+    ctx.sudo("supervisorctl stop obda:obda-net")
+    ctx.sudo("supervisorctl reread")
+    ctx.sudo("supervisorctl start obda:obda-net")
     for path in (archive, requirements):
         ctx.run(f"rm {path}")
         local(f"rm {path}")
