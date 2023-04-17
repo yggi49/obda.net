@@ -95,7 +95,7 @@ build:
         VERSION=$(date -u '+%y%m%d.%H%M' | sed 's/\.0*/./g' | sed 's/\.$/.0/')
     - poetry version 2.$VERSION
     - export OBDANET_VERSION=$(poetry version -s)
-    - echo "OBDANET_VERSION=OBDANET_VERSION" >> variables.env
+    - echo "OBDANET_VERSION=$OBDANET_VERSION" >> variables.env
     - echo "OBDANET_RELEASE=obda-net@$OBDANET_VERSION" >> variables.env
   artifacts:
     reports:
@@ -111,7 +111,7 @@ sentry_release:
   dependencies:
     - build
   script:
-    - sentry-cli releases new OBDANET_RELEASE
+    - sentry-cli releases new $OBDANET_RELEASE
     - sentry-cli releases set-commits --auto $OBDANET_RELEASE
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
