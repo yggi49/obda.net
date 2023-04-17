@@ -45,8 +45,8 @@ class EscapeHTML(markdown.extensions.Extension):
 
     def extendMarkdown(self, md: markdown.Markdown) -> None:  # noqa: N802
         """Remove HTML preprocessors from the Markdown renderer."""
-        del md.preprocessors["html_block"]
-        del md.inlinePatterns["html"]
+        md.preprocessors.deregister("html_block")
+        md.inlinePatterns.deregister("html")
 
 
 class DefaultConfig:
@@ -328,9 +328,11 @@ def get_comments(page: Page) -> list[Page]:
     """Return all comments for an article as a list of :class:`Page`s."""
     comments = []
     for comment in comment_directory_list(page):
+        # noinspection PyProtectedMember
         comment_page = pages._load_file(  # noqa: SLF001
             comment["path"],
             comment["file"],
+            comment["path"],  # TODO: check correctness
         )
         comment_page.html_renderer = DefaultConfig.prerender_escaped
         comments.append(comment_page)
