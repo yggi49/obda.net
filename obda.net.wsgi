@@ -10,6 +10,7 @@ import uuid
 from collections.abc import Counter, Iterable, Iterator
 
 import markdown
+import sentry_sdk
 import yaml
 from flask import (
     Flask,
@@ -30,6 +31,7 @@ from flask_flatpages import (
 )
 from flask_gravatar import Gravatar
 from markupsafe import Markup
+from sentry_sdk.integrations.flask import FlaskIntegration
 from werkzeug import Response
 
 # Configuration
@@ -73,6 +75,7 @@ class DefaultConfig:
     ARTICLES_PER_PAGE = 3
     GRAVATAR_SIZE = 48
     GRAVATAR_DEFAULT = "identicon"
+    VERSION = "development"
 
 
 # Application setup
@@ -88,6 +91,14 @@ gravatar = Gravatar(
 )
 pages = FlatPages()
 pages.init_app(app)
+
+if sentry_dsn := os.environ.get("SENTRY_DSN"):
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        release="obda-net@{}".format(app.config["VERSION"]),
+        environment="production",
+        integrations=[FlaskIntegration()],
+    )
 
 
 # Template filters & globals

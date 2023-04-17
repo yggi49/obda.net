@@ -5,7 +5,7 @@ from invoke import run as local
 
 
 @task
-def deploy(ctx: Connection) -> None:
+def deploy(ctx: Connection, version: str) -> None:
     """Deploy the blog to the production system.
 
     Do not forget to supply ``--prompt-for-sudo-password`` when running
@@ -21,6 +21,11 @@ def deploy(ctx: Connection) -> None:
         ctx.put(path, path)
     ctx.sudo(f"tar -C /srv/obda/blog -xzf {archive}")
     ctx.sudo(f"/srv/obda/blog/venv/bin/pip install -r {requirements}")
+    ctx.sudo(
+        "perl -p -i -e "
+        f"""'s/VERSION = "development"/VERSION = "{version}"/g' """
+        "/srv/obda/blog/obda.net.wsgi",
+    )
     ctx.sudo("chown -R obda:obda /srv/obda/blog")
     ctx.sudo("touch /etc/uwsgi.d/obda.ini")
     for path in (archive, requirements):
