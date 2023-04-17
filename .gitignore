@@ -2,3 +2,4 @@
 /pages/blog/*.draft.md
 /pages/blog/**/*/comment-*
 /.idea/
+/.ruff_cache/
