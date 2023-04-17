@@ -7,7 +7,8 @@ import math
 import os
 import sys
 import uuid
-from collections.abc import Counter, Iterable, Iterator
+from collections import Counter
+from collections.abc import Iterable, Iterator
 
 import markdown
 import sentry_sdk

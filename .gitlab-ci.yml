@@ -1,0 +1,186 @@
+---
+
+# Workflow
+# ========
+#
+# Run pipelines except for merge requests and for tags.
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - when: always
+
+
+# Defaults
+# ========
+
+default:
+  image: python:3.10.10
+  before_script:
+    - curl -sSL https://install.python-poetry.org | python -
+    - export PATH=$POETRY_HOME/venv/bin:$PATH
+    - poetry config experimental.new-installer false
+    - poetry config virtualenvs.in-project true
+    - poetry install
+  cache:
+    key:
+      files:
+        - poetry.lock
+      prefix: $CI_JOB_IMAGE-poetry-$POETRY_VERSION
+    paths:
+      - .cache/pre-commit
+      - .poetry-1.4.2
+      - .venv
+  tags:
+    - docker
+
+variables:
+  POETRY_VERSION: 1.4.2
+  POETRY_HOME: $CI_PROJECT_DIR/.poetry-1.4.2
+  PRE_COMMIT_HOME: $CI_PROJECT_DIR/.cache/pre-commit
+
+
+# Job Templates
+# =============
+
+.sentry_cli:
+  image: getsentry/sentry-cli
+  before_script: []
+  cache:
+  allow_failure: true
+
+
+# Stages
+# ======
+
+stages:
+  - style
+  - build
+  - predeploy
+  - deploy
+  - postdeploy
+
+
+# Stage: “style”
+# --------------
+
+style:
+  stage: style
+  script:
+    - poetry run pre-commit run -a
+
+# The code complexity job does not perform any checks or validations; it is
+# merely generating a report.  Hence, this jobs should never fail—and even if
+# it does, it does not matter for the overall pipeline status.
+
+complexity:
+  stage: style
+  script:
+    - poetry run radon cc . -a -s
+  allow_failure: true
+
+
+# Stage: “build”
+# --------------
+
+build:
+  stage: build
+  dependencies: []
+  script:
+    - >-
+        export
+        VERSION=$(date -u '+%y%m%d.%H%M' | sed 's/\.0*/./g' | sed 's/\.$/.0/')
+    - poetry version 2.$VERSION
+    - export OBDANET_VERSION=$(poetry version -s)
+    - echo "OBDANET_VERSION=OBDANET_VERSION" >> variables.env
+    - echo "OBDANET_RELEASE=obda-net@$OBDANET_VERSION" >> variables.env
+  artifacts:
+    reports:
+      dotenv: variables.env
+
+
+# Stage: “predeploy”
+# ------------------
+
+sentry_release:
+  extends: .sentry_cli
+  stage: predeploy
+  dependencies:
+    - build
+  script:
+    - sentry-cli releases new OBDANET_RELEASE
+    - sentry-cli releases set-commits --auto $OBDANET_RELEASE
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+gitlab_release:
+  stage: predeploy
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  dependencies:
+    - build
+  before_script: []
+  script:
+    - echo "Creating GitLab CI release for version $OBDANET_VERSION"
+  release:
+    tag_name: v$OBDANET_VERSION
+    name: Release $OBDANET_VERSION
+    description: $CI_COMMIT_DESCRIPTION
+    ref: $CI_COMMIT_SHA
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+
+# Stage: “deploy”
+# ---------------
+
+deploy:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - >-
+        poetry run
+        fab
+        --echo
+        --identity $OBDANET_SSH_PRIVATE_KEY
+        --hosts $OBDANET_SSH_HOST
+        deploy
+        $OBDANET_VERSION
+  environment:
+    name: production
+    deployment_tier: production
+    url: https://obda.net
+  resource_group: production
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+
+# Stage: “postdeploy”
+# -------------------
+
+sentry_deploy:
+  extends: .sentry_cli
+  stage: postdeploy
+  dependencies:
+    - build
+  script:
+    - sentry-cli releases finalize $OBDANET_RELEASE
+    - sentry-cli releases deploys $OBDANET_RELEASE new -e production
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+verify:
+  stage: postdeploy
+  dependencies:
+    - build
+  before_script: []
+  script:
+    - >-
+        curl -s https://obda.net
+        | tee /dev/stderr
+        | grep "<!-- obda.net version $OBDANET_VERSION -->"
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
