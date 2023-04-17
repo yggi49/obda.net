@@ -181,6 +181,6 @@ verify:
     - >-
         curl -s https://obda.net
         | tee /dev/stderr
-        | grep "<!-- obda.net version $OBDANET_VERSION -->"
+        | grep -q "<!-- obda.net version $OBDANET_VERSION -->"
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
