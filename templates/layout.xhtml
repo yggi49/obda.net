@@ -29,7 +29,7 @@
         <footer role='contentinfo'>
             © {{ none|date('%Y') }} Clemens Kaposi
         </footer>
-        <!-- Piwik -->
+        <!-- Matomo -->
         <script>
         //<![CDATA[
             if (document.location.hostname != 'localhost') {
@@ -37,21 +37,21 @@
                 _paq.push(['trackPageView']);
                 _paq.push(['enableLinkTracking']);
                 (function() {
-                    var u = (('https:' == document.location.protocol) ? 'https' : 'http') + '://piwik.obda.net/';
-                    _paq.push(['setTrackerUrl', u + 'piwik.php']);
+                    var u = (('https:' == document.location.protocol) ? 'https' : 'http') + '://matomo.obda.net/';
+                    _paq.push(['setTrackerUrl', u + 'matomo.php']);
                     _paq.push(['setSiteId', 5]);
                     var d = document,
                         g = d.createElement('script'),
                         s = d.getElementsByTagName('script')[0];
                     g.defer = true;
                     g.async = true;
-                    g.src = u + 'piwik.js';
+                    g.src = u + 'matomo.js';
                     s.parentNode.insertBefore(g, s);
                 })();
             }
         //]]>
         </script>
-        <!-- End Piwik Code -->
+        <!-- End Matomo Code -->
     </body>
     <!-- obda.net version {{ config.VERSION }} -->
 </html>
