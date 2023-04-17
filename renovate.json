@@ -1,0 +1,32 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:base"
+    ],
+    "packageRules": [
+        {
+            "description": "Disable major and minor version upgrades of Python images in GitLab CI",
+            "enabled": false,
+            "matchManagers": [
+                "gitlabci"
+            ],
+            "matchPackageNames": [
+                "python"
+            ],
+            "matchUpdateTypes": [
+                "major",
+                "minor"
+            ]
+        },
+        {
+            "description": "Use separate branches for `minor` and `patch` updates",
+            "matchManagers": [
+                "gitlabci"
+            ],
+            "matchPackageNames": [
+                "python"
+            ],
+            "separateMinorPatch": true
+        }
+    ]
+}
