@@ -508,9 +508,11 @@ footer[role='contentinfo'] {
 .article + .comments > ol header ~ * {
     overflow-wrap: break-word;
 }
-.article + .comments > ol code,
 .article + .comments > ol pre {
     font-size: 90%;
+}
+.article + .comments > ol code {
+    font-size: 1.1em;
 }
 .article + .comments > ol ol {
     list-style-type: decimal;
