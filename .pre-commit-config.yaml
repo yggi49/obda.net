@@ -42,6 +42,12 @@ repos:
       - id: yamllint
         name: YAML Style Checking
 
+  - repo: https://github.com/renovatebot/pre-commit-hooks
+    rev: 35.22.1
+    hooks:
+      - id: renovate-config-validator
+        name: "Renovate Config Checking"
+
   - repo: https://github.com/yunojuno/pre-commit-xenon
     rev: v0.1
     hooks:
