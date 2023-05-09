@@ -22,7 +22,6 @@ default:
   before_script:
     - curl -sSL https://install.python-poetry.org | python -
     - export PATH=$POETRY_HOME/venv/bin:$PATH
-    - poetry config experimental.new-installer false
     - poetry config virtualenvs.in-project true
     - poetry install
   cache:
