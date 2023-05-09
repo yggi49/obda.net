@@ -1,0 +1,10 @@
+# Code Owners
+# ===========
+#
+# Documentation:
+#
+#   * https://docs.gitlab.com/ee/user/project/codeowners/index.html
+#   * https://docs.gitlab.com/ee/user/project/codeowners/reference.html
+
+# Set the default Code Owners
+* @yggi49
