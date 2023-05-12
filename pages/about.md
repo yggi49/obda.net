@@ -32,6 +32,25 @@ browsers and image editing.
   * **Key ID:** 5F35334B
   * **Fingerprint:** F0E1 461E CD40 56E1 A5D3 6D43 6D8E 78E0 5F35 334B
 
+### Projects
+
+  * [Flask-WTF-Polyglot](https://pypi.org/project/flask-wtf-polyglot/)—a
+    [Flask-WTF](https://flask-wtf.readthedocs.io/) companion library for
+    [polyglot HTML](http://www.w3.org/TR/html-polyglot/) output (built on top
+    of [WTForms-Polyglot](https://pypi.org/project/wtforms-polyglot/), see
+    below)
+  * [FlookieFlutter](https://gitlab.com/obda/flookieflutter)—a
+    [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/) template
+    for [Flask](https://flask.palletsprojects.com/) projects
+  * [obdaRemind](https://gitlab.com/obda/obdaremind)—a simple curses frontend
+    for [Remind](https://dianne.skoll.ca/projects/remind/)
+  * [poetry-alias](https://pypi.org/project/poetry-alias/)—a
+    [Poetry](https://python-poetry.org) plugin that adds
+    [Pew](https://github.com/berdario/pew)-style project management
+  * [WTForms-Polyglot](https://pypi.org/project/wtforms-polyglot/)—a
+    [WTForms](https://wtforms.readthedocs.io/) companion library for [polyglot
+    HTML](http://www.w3.org/TR/html-polyglot/) output
+
 ### Profiles
 
   * [AngelList](https://angel.co/clemens-kaposi)
