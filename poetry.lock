@@ -352,6 +352,18 @@ test-randomorder = ["pytest-randomly"]
 tox = ["tox"]
 
 [[package]]
+name = "decorator"
+version = "5.1.1"
+description = "Decorators for Humans"
+category = "dev"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "decorator-5.1.1-py3-none-any.whl", hash = "sha256:b8c3f85900b9dc423225913c5aace94729fe1fa9763b38939a95226f02d37186"},
+    {file = "decorator-5.1.1.tar.gz", hash = "sha256:637996211036b6385ef91435e4fae22989472f9d571faba8927ba8253acbc330"},
+]
+
+[[package]]
 name = "distlib"
 version = "0.3.6"
 description = "Distribution utilities"
@@ -365,17 +377,18 @@ files = [
 
 [[package]]
 name = "fabric"
-version = "3.0.1"
+version = "3.1.0"
 description = "High level SSH command execution"
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "fabric-3.0.1-py3-none-any.whl", hash = "sha256:a616a47b0e929c46c0c85619634a8a7522aa03378e1aea275c0a548385653ddf"},
-    {file = "fabric-3.0.1.tar.gz", hash = "sha256:65af8199f3e90c226db0aa03984989084099b9758315d9a4001f5e32c8599a84"},
+    {file = "fabric-3.1.0-py3-none-any.whl", hash = "sha256:0a13217db1aa203167376119b0e165081c5906c31e2b2104410685d1310ef8fb"},
+    {file = "fabric-3.1.0.tar.gz", hash = "sha256:ea1c5ea3956d196b5990ba720cc8ee457fa1b9c6f265ab3b643ff63b05e8970a"},
 ]
 
 [package.dependencies]
+decorator = ">=5"
 invoke = ">=2.0"
 paramiko = ">=2.4"
 
