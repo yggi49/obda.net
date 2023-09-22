@@ -20,7 +20,7 @@ def deploy(ctx: Connection, version: str) -> None:
     :param version: the version number that shall be reported by the
                     installed application.
     """
-    python_version = "3.10"
+    python_version = "3.11"
     app_user = "obda"
     base_dir = "/srv/obda/blog"
     # Create application directory (if necessary)
