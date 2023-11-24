@@ -9,6 +9,7 @@ import sys
 import uuid
 from collections import Counter
 from collections.abc import Iterable, Iterator
+from hashlib import sha256
 from typing import Any
 
 import markdown
@@ -31,7 +32,6 @@ from flask_flatpages import (
     pygmented_markdown,
     pygments_style_defs,
 )
-from flask_gravatar import Gravatar
 from markupsafe import Markup
 from sentry_sdk.integrations.flask import FlaskIntegration
 from werkzeug import Response
@@ -86,11 +86,6 @@ class DefaultConfig:
 application = app = Flask(__name__)
 app.config.from_object(DefaultConfig)
 app.config.from_envvar("OBDA_SETTINGS", silent=True)
-gravatar = Gravatar(
-    app,
-    size=app.config["GRAVATAR_SIZE"],
-    default=app.config["GRAVATAR_DEFAULT"],
-)
 pages = FlatPages()
 pages.init_app(app)
 
@@ -125,6 +120,18 @@ def pluralize(number: int, singular: str = "", plural: str = "s") -> str:
     if number == 1:
         return singular
     return plural
+
+
+@app.template_filter()
+def gravatar(email: str) -> str:
+    """Return the Gravatar URL for an email address."""
+    hash_value = sha256(email.lower().encode("utf-8")).hexdigest()
+    return (
+        f"https://www.gravatar.com/avatar/{hash_value}"
+        f"?s={app.config['GRAVATAR_SIZE']}"
+        f"&d={app.config['GRAVATAR_DEFAULT']}"
+        f"&r=g"
+    )
 
 
 @app.template_global()
