@@ -30,7 +30,7 @@
                     <b>{{ comment.meta.author }}</b>
                     {%- endif %}
                     {%- if comment.meta.email %}
-                    <img src='{{ comment.meta.email|gravatar(use_ssl=request.is_secure) }}' alt='' />
+                    <img src='{{ comment.meta.email|gravatar }}' alt='' />
                     {%- endif %}
                     <span>on</span>
                     <time datetime='{{ comment.meta.published|date('%Y-%m-%dT%H:%M:%S+00:00') }}'>{{ comment.meta.published|date('%B&#160;%e,&#160;%Y at&#160;%-I:%M&#160;%P')|safe }}</time>

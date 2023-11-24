@@ -9,6 +9,8 @@ import sys
 import uuid
 from collections import Counter
 from collections.abc import Iterable, Iterator
+from hashlib import sha256
+from types import MappingProxyType
 from typing import Any
 
 import markdown
@@ -31,7 +33,6 @@ from flask_flatpages import (
     pygmented_markdown,
     pygments_style_defs,
 )
-from flask_gravatar import Gravatar
 from markupsafe import Markup
 from sentry_sdk.integrations.flask import FlaskIntegration
 from werkzeug import Response
@@ -70,8 +71,10 @@ class DefaultConfig:
     FLATPAGES_EXTENSION = ".md"
     FLATPAGES_HTML_RENDERER = prerender_jinja
     FLATPAGES_LEGACY_META_PARSER = True
-    FLATPAGES_MARKDOWN_EXTENSIONS = ["codehilite", "tables", "footnotes"]
-    FLATPAGES_EXTENSION_CONFIGS = {"codehilite": {"guess_lang": False}}
+    FLATPAGES_MARKDOWN_EXTENSIONS = ("codehilite", "tables", "footnotes")
+    FLATPAGES_EXTENSION_CONFIGS = MappingProxyType(
+        {"codehilite": {"guess_lang": False}},
+    )
     MARKDOWN_ESCAPE = EscapeHTML()
     PYGMENTS_STYLE = "solarized-dark"
     ARTICLES_PER_PAGE = 3
@@ -86,11 +89,6 @@ class DefaultConfig:
 application = app = Flask(__name__)
 app.config.from_object(DefaultConfig)
 app.config.from_envvar("OBDA_SETTINGS", silent=True)
-gravatar = Gravatar(
-    app,
-    size=app.config["GRAVATAR_SIZE"],
-    default=app.config["GRAVATAR_DEFAULT"],
-)
 pages = FlatPages()
 pages.init_app(app)
 
@@ -116,7 +114,7 @@ def markdown_filter(s: str) -> str:
 def date_filter(d: datetime.datetime, format_string: str) -> str:
     """Format a date according to a given format string."""
     if d is None:
-        d = datetime.datetime.now(datetime.timezone.utc)
+        d = datetime.datetime.now(datetime.UTC)
     return d.strftime(format_string)
 
 
@@ -125,6 +123,18 @@ def pluralize(number: int, singular: str = "", plural: str = "s") -> str:
     if number == 1:
         return singular
     return plural
+
+
+@app.template_filter()
+def gravatar(email: str) -> str:
+    """Return the Gravatar URL for an email address."""
+    hash_value = sha256(email.lower().encode("utf-8")).hexdigest()
+    return (
+        f"https://www.gravatar.com/avatar/{hash_value}"
+        f"?s={app.config['GRAVATAR_SIZE']}"
+        f"&d={app.config['GRAVATAR_DEFAULT']}"
+        f"&r=g"
+    )
 
 
 @app.template_global()
@@ -171,7 +181,7 @@ def csrf_token(key: str) -> str:
     token = str(uuid.uuid4())
     session["csrf_tokens"][key] = {
         "token": token,
-        "timestamp": datetime.datetime.now(datetime.timezone.utc),
+        "timestamp": datetime.datetime.now(datetime.UTC),
     }
     return token
 
@@ -314,7 +324,7 @@ def comment_directory_list(page: Page) -> list[dict]:
     if os.path.isdir(comment_directory):
         directory_list = [
             {
-                "path": "/".join((page.path, filename)),
+                "path": f"{page.path}/{filename}",
                 "file": os.path.join(root, filename),
             }
             for root, dirs, files in os.walk(comment_directory)
@@ -332,7 +342,7 @@ def get_comments(page: Page) -> list[Page]:
         comment_page = pages._load_file(  # noqa: SLF001
             comment["path"],
             comment["file"],
-            comment["path"],  # TODO: check correctness
+            comment["path"],
         )
         comment_page.html_renderer = DefaultConfig.prerender_escaped
         comments.append(comment_page)
@@ -349,7 +359,7 @@ def validate_csrf(page: Page) -> bool:
     csrf = session["csrf_tokens"].pop(path)
     if not csrf or csrf["token"] != request.form.get("csrf_token"):
         abort(403)
-    now = datetime.datetime.now(datetime.timezone.utc)
+    now = datetime.datetime.now(datetime.UTC)
     csrf_age = now - csrf["timestamp"]
     if csrf_age.total_seconds() >= 15 * 60:
         return False
@@ -365,7 +375,7 @@ def post_comment(page: Page, data: dict) -> Response:
     comment_directory = os.path.join(pages.root, page.path)
     if not os.path.isdir(comment_directory):
         os.mkdir(comment_directory)
-    now = datetime.datetime.now(datetime.timezone.utc)
+    now = datetime.datetime.now(datetime.UTC)
     filename = "comment-{}".format(now.strftime("%Y-%m-%d-%H.%M.%S.%f"))
     full_path = os.path.join(comment_directory, filename)
     meta = {
