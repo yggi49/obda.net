@@ -31,14 +31,14 @@ default:
       prefix: $CI_JOB_IMAGE-poetry-$POETRY_VERSION
     paths:
       - .cache/pre-commit
-      - .poetry-1.4.2
+      - .poetry-1.7.1
       - .venv
   tags:
     - docker
 
 variables:
-  POETRY_VERSION: 1.4.2
-  POETRY_HOME: $CI_PROJECT_DIR/.poetry-1.4.2
+  POETRY_VERSION: 1.7.1
+  POETRY_HOME: $CI_PROJECT_DIR/.poetry-1.7.1
   PRE_COMMIT_HOME: $CI_PROJECT_DIR/.cache/pre-commit
 
 
