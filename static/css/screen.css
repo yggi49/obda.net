@@ -643,7 +643,6 @@ footer[role='contentinfo'] {
 .pagination a, .pagination strong {
     border-radius: .3em;
     padding: .2em .5em;
-    color: #657b83;
     text-decoration: none;
 }
 .pagination strong {
