@@ -903,13 +903,13 @@ files = [
 
 [[package]]
 name = "sentry-sdk"
-version = "1.37.0"
+version = "1.38.0"
 description = "Python client for Sentry (https://sentry.io)"
 optional = false
 python-versions = "*"
 files = [
-    {file = "sentry-sdk-1.37.0.tar.gz", hash = "sha256:ab4dc65a42db24c075e450c92b1e451ae266618fca857fcfe3dc16d37e1945eb"},
-    {file = "sentry_sdk-1.37.0-py2.py3-none-any.whl", hash = "sha256:d3fc420d972e692376fe3fcd8560b5cea75aafac7a04f54ea6c01200aff59177"},
+    {file = "sentry-sdk-1.38.0.tar.gz", hash = "sha256:8feab81de6bbf64f53279b085bd3820e3e737403b0a0d9317f73a2c3374ae359"},
+    {file = "sentry_sdk-1.38.0-py2.py3-none-any.whl", hash = "sha256:0017fa73b8ae2d4e57fd2522ee3df30453715b29d2692142793ec5d5f90b94a6"},
 ]
 
 [package.dependencies]
