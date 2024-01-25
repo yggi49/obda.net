@@ -28,7 +28,7 @@ browsers and image editing.
 
 ### GnuPG
 
-  * [Public key](/static/files/clemens.kaposi.gnupg.pub.asc)
+  * [Public key](/static/files/clemens.kaposi.2024-01-25.gnupg.pub.asc)
   * **Key ID:** 5F35334B
   * **Fingerprint:** F0E1 461E CD40 56E1 A5D3 6D43 6D8E 78E0 5F35 334B
 
