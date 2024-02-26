@@ -7,11 +7,11 @@
         {
             "description": "Disable major and minor version upgrades of Python images in GitLab CI",
             "enabled": false,
+            "matchDepNames": [
+                "python"
+            ],
             "matchManagers": [
                 "gitlabci"
-            ],
-            "matchPackageNames": [
-                "python"
             ],
             "matchUpdateTypes": [
                 "major",
@@ -20,11 +20,11 @@
         },
         {
             "description": "Use separate branches for `minor` and `patch` updates",
+            "matchDepNames": [
+                "python"
+            ],
             "matchManagers": [
                 "gitlabci"
-            ],
-            "matchPackageNames": [
-                "python"
             ],
             "separateMinorPatch": true
         }
