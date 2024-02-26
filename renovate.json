@@ -28,5 +28,16 @@
             ],
             "separateMinorPatch": true
         }
-    ]
+    ],
+    "prBodyColumns": [
+        "Package",
+        "Type",
+        "Data Source",
+        "Update",
+        "Change",
+        "Pending"
+    ],
+    "prBodyDefinitions": {
+        "Data Source": "{{{datasource}}}"
+    }
 }
