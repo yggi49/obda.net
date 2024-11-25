@@ -437,13 +437,13 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-flatpages"
-version = "0.8.2"
+version = "0.8.3"
 description = "Provides flat static pages to a Flask application"
 optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 files = [
-    {file = "Flask-FlatPages-0.8.2.tar.gz", hash = "sha256:403f0c574a308d45489bd02ac3abf618efc5f1f206b1f80603400580bcd0bc69"},
-    {file = "Flask_FlatPages-0.8.2-py3-none-any.whl", hash = "sha256:d638d05b8cde4498da3259f04e8b44e213bc0b113809ee5991b5ca16336ee771"},
+    {file = "Flask_FlatPages-0.8.3-py3-none-any.whl", hash = "sha256:1a135c66a68531beaa7257927f0e7314888fd3bd206a27fa14e777db6cba31b5"},
+    {file = "flask_flatpages-0.8.3.tar.gz", hash = "sha256:615a33fb526fbd4773ec832ae325b6581361299ad48d70cd35f686315f57a263"},
 ]
 
 [package.dependencies]
@@ -454,7 +454,7 @@ PyYAML = ">5.3.1"
 six = "*"
 
 [package.extras]
-codehilite = ["Pygmetns (>=2.5.2)"]
+codehilite = ["Pygments (>=2.5.2)"]
 
 [[package]]
 name = "future"
