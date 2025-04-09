@@ -18,7 +18,7 @@ workflow:
 # ========
 
 default:
-  image: python:3.10.13
+  image: python:3.10.17
   before_script:
     - curl -sSL https://install.python-poetry.org | python -
     - export PATH=$POETRY_HOME/venv/bin:$PATH
